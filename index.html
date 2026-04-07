@@ -8,21 +8,30 @@
       name="description"
       content="Des spectacles légers, sensibles et accessibles, pensés pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --sand: #f7f1e8;
-        --sand-deep: #efe4d3;
-        --card: rgba(255, 255, 255, 0.78);
-        --text: #2f2a24;
-        --muted: #6d655c;
+        --sand: #f5f2e8;
+        --sand-deep: #e8dcc3;
+        --card: rgba(255, 252, 246, 0.8);
+        --text: #0b0b0b;
+        --muted: #5f5a52;
         --line: rgba(80, 68, 53, 0.12);
-        --green: #2f6a4c;
+        --green: #2f6f5e;
         --green-soft: #97b48a;
+        --ochre: #c2a878;
         --shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
         --radius-xl: 32px;
         --radius-lg: 24px;
         --radius-md: 18px;
         --max: 1200px;
+        --font-serif: "Spectral", Georgia, serif;
+        --font-sans: "Source Sans 3", Inter, ui-sans-serif, system-ui, sans-serif;
       }
 
       * {
@@ -35,12 +44,13 @@
 
       body {
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: var(--font-sans);
         color: var(--text);
         background:
-          radial-gradient(circle at top left, rgba(47, 106, 76, 0.12), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(151, 180, 138, 0.12), transparent 22%),
-          linear-gradient(180deg, #f8f3ea 0%, #f4ecdf 100%);
+          radial-gradient(circle at 12% 18%, rgba(47, 111, 94, 0.08), transparent 16%),
+          radial-gradient(circle at 82% 72%, rgba(151, 180, 138, 0.1), transparent 14%),
+          radial-gradient(circle at 68% 20%, rgba(194, 168, 120, 0.08), transparent 18%),
+          linear-gradient(180deg, #f7f3ea 0%, #f3ecde 100%);
       }
 
       body::before {
@@ -48,9 +58,22 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        opacity: 0.25;
-        background-image: radial-gradient(#dccfbf 0.7px, transparent 0.7px);
-        background-size: 18px 18px;
+        opacity: 0.22;
+        background-image: radial-gradient(rgba(194, 168, 120, 0.45) 0.8px, transparent 0.8px);
+        background-size: 20px 20px;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 140px 70px at 8% 14%, rgba(151, 180, 138, 0.14), transparent 58%),
+          radial-gradient(ellipse 170px 88px at 92% 22%, rgba(47, 111, 94, 0.08), transparent 60%),
+          radial-gradient(ellipse 120px 60px at 16% 78%, rgba(151, 180, 138, 0.1), transparent 58%),
+          radial-gradient(ellipse 180px 90px at 88% 88%, rgba(194, 168, 120, 0.1), transparent 62%);
+        opacity: 0.9;
       }
 
       img {
@@ -73,7 +96,7 @@
         top: 0;
         z-index: 50;
         backdrop-filter: blur(16px);
-        background: rgba(247, 241, 232, 0.82);
+        background: rgba(245, 242, 232, 0.82);
         border-bottom: 1px solid rgba(255, 255, 255, 0.35);
       }
 
@@ -88,10 +111,11 @@
       .brand-kicker,
       .eyebrow {
         text-transform: uppercase;
-        letter-spacing: 0.32em;
+        letter-spacing: 0.26em;
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--green);
+        font-family: var(--font-sans);
       }
 
       .brand-sub {
@@ -114,8 +138,6 @@
       .hero {
         position: relative;
         min-height: 88vh;
-        display: flex;
-        align-items: flex-end;
         overflow: hidden;
       }
 
@@ -132,27 +154,23 @@
       }
 
       .hero-overlay {
-        background: linear-gradient(110deg, rgba(20, 18, 15, 0.72) 0%, rgba(20, 18, 15, 0.38) 45%, rgba(20, 18, 15, 0.18) 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(20, 18, 15, 0.06) 0%,
+          rgba(20, 18, 15, 0.12) 60%,
+          rgba(20, 18, 15, 0.32) 100%
+        );
       }
 
       .hero-content {
         position: relative;
         z-index: 1;
         max-width: 760px;
-        padding: 100px 0 84px;
+        padding: 100px 0 64px;
         color: white;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 16px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(8px);
-        font-size: 14px;
+        display: flex;
+        align-items: flex-end;
+        min-height: 88vh;
       }
 
       h1,
@@ -163,19 +181,12 @@
         margin: 0;
       }
 
-      h1 {
-        margin-top: 22px;
-        font-size: clamp(42px, 7vw, 78px);
-        line-height: 1.02;
-        letter-spacing: -0.04em;
-      }
-
-      .hero-text {
-        margin-top: 22px;
-        font-size: 20px;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.88);
-        max-width: 670px;
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-serif);
+        font-weight: 600;
       }
 
       .hero-actions,
@@ -184,10 +195,6 @@
         display: flex;
         gap: 14px;
         flex-wrap: wrap;
-      }
-
-      .hero-actions {
-        margin-top: 34px;
       }
 
       .button {
@@ -200,6 +207,7 @@
         border-radius: 999px;
         border: 1px solid transparent;
         font-weight: 600;
+        font-family: var(--font-sans);
         cursor: pointer;
         transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
       }
@@ -209,19 +217,21 @@
       }
 
       .button-primary {
-        background: white;
+        background: rgba(255, 252, 246, 0.95);
         color: var(--text);
       }
 
       .button-secondary {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.28);
         color: white;
         backdrop-filter: blur(8px);
       }
 
       section {
         padding: 84px 0;
+        position: relative;
+        z-index: 1;
       }
 
       .card {
@@ -242,7 +252,8 @@
         margin-top: 14px;
         font-size: clamp(34px, 5vw, 56px);
         line-height: 1.08;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.02em;
+        font-weight: 600;
       }
 
       .section-head p {
@@ -288,7 +299,8 @@
         margin-top: 14px;
         font-size: clamp(34px, 4.4vw, 54px);
         line-height: 1.08;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.02em;
+        font-weight: 600;
       }
 
       .stack {
@@ -309,7 +321,7 @@
         margin-top: 28px;
         padding: 26px;
         border-radius: var(--radius-lg);
-        background: #f7f2e8;
+        background: rgba(247, 242, 232, 0.95);
       }
 
       .soft-box h3 {
@@ -346,7 +358,8 @@
       .carousel-head h3 {
         font-size: 30px;
         line-height: 1.15;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.02em;
+        font-weight: 600;
       }
 
       .controls {
@@ -402,7 +415,8 @@
       .split-slide h4 {
         font-size: 34px;
         line-height: 1.15;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.02em;
+        font-weight: 600;
       }
 
       .text-slide-inner p,
@@ -416,7 +430,7 @@
       .meta {
         margin-top: 18px !important;
         text-transform: uppercase;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.18em;
         font-size: 12px !important;
         color: #82796d !important;
       }
@@ -469,6 +483,7 @@
         line-height: 1.18;
         max-width: 520px;
         white-space: pre-line;
+        font-family: var(--font-serif);
       }
 
       .dots {
@@ -493,18 +508,13 @@
         background: var(--green);
       }
 
-      .ambient {
-        position: relative;
-        overflow: hidden;
-      }
-
       .ambient-stage {
         position: relative;
         height: 520px;
         border-radius: var(--radius-xl);
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.5);
-        box-shadow: 0 25px 100px rgba(0,0,0,0.12);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 25px 100px rgba(0, 0, 0, 0.12);
       }
 
       .ambient-stage img {
@@ -528,7 +538,7 @@
         display: flex;
         align-items: flex-end;
         padding: 34px;
-        background: linear-gradient(to top, rgba(20,18,15,0.66), transparent);
+        background: linear-gradient(to top, rgba(20, 18, 15, 0.66), transparent);
       }
 
       .ambient-overlay p {
@@ -537,6 +547,7 @@
         line-height: 1.15;
         letter-spacing: -0.03em;
         max-width: 760px;
+        font-family: var(--font-serif);
       }
 
       .about-grid {
@@ -546,7 +557,7 @@
       .about-image {
         min-height: 520px;
         background: var(--card);
-        border: 1px solid rgba(255,255,255,0.5);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         box-shadow: var(--shadow);
       }
 
@@ -565,7 +576,7 @@
         padding: 11px 16px;
         border-radius: 999px;
         background: white;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
         font-size: 14px;
         color: #5e544a;
       }
@@ -585,7 +596,7 @@
         gap: 12px;
         align-items: flex-start;
         border-radius: 22px;
-        background: #f7f2e8;
+        background: rgba(247, 242, 232, 0.95);
         padding: 18px;
         color: var(--muted);
         line-height: 1.7;
@@ -619,6 +630,8 @@
       .footer {
         border-top: 1px solid rgba(80, 68, 53, 0.12);
         padding: 24px 0 34px;
+        position: relative;
+        z-index: 1;
       }
 
       .footer-inner {
@@ -628,10 +641,6 @@
         flex-wrap: wrap;
         color: var(--muted);
         font-size: 14px;
-      }
-
-      .icon {
-        font-style: normal;
       }
 
       @media (max-width: 1024px) {
@@ -663,10 +672,9 @@
         }
 
         .hero-content {
-          padding: 88px 0 64px;
+          padding: 88px 0 48px;
         }
 
-        .hero-text,
         .promise-copy,
         .about-copy,
         .contact-copy p,
@@ -711,7 +719,7 @@
     <header class="topbar">
       <div class="container topbar-inner">
         <div>
-          <div class="brand-kicker">Tiers-Lieux</div>
+          <div class="brand-kicker">tiers-lieux</div>
           <div class="brand-sub">Spectacles légers · rencontres vivantes</div>
         </div>
         <nav class="nav" aria-label="Navigation principale">
@@ -725,21 +733,12 @@
     </header>
 
     <section class="hero" aria-label="Introduction">
-      <img
-        class="hero-media"
-        src="assets/hero.jpg"
-        alt="Visuel d'accueil"
-      />
+      <img class="hero-media" src="assets/hero.jpg" alt="Visuel d'accueil" />
       <div class="hero-overlay"></div>
       <div class="container hero-content">
-        <div class="pill"><span class="icon">🌿</span> Spectacles pour lieux vivants</div>
-        <h1>Faire entrer le théâtre là où la vie circule déjà.</h1>
-        <p class="hero-text">
-          Des formes légères, sensibles et accessibles, pensées pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment.
-        </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#contact">Accueillir un spectacle <span aria-hidden="true">→</span></a>
-          <a class="button button-secondary" href="#spectacles">Découvrir les spectacles</a>
+          <a class="button button-secondary" href="#spectacles">Découvrir un spectacle</a>
         </div>
       </div>
     </section>
@@ -883,14 +882,12 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
             <div class="eyebrow">Ambiance</div>
             <h2>Une présence artistique qui relie les personnes</h2>
           </div>
-          <div class="ambient">
-            <div class="ambient-stage" data-ambient>
-              <img class="active" src="assets/ambiance-1.jpg" alt="Ambiance 1" />
-              <img src="assets/ambiance-2.jpg" alt="Ambiance 2" />
-              <img src="assets/ambiance-3.jpg" alt="Ambiance 3" />
-              <div class="ambient-overlay">
-                <p>Un moment partagé,<br />entre inconnus qui deviennent un peu moins inconnus.</p>
-              </div>
+          <div class="ambient-stage" data-ambient>
+            <img class="active" src="assets/ambiance-1.jpg" alt="Ambiance 1" />
+            <img src="assets/ambiance-2.jpg" alt="Ambiance 2" />
+            <img src="assets/ambiance-3.jpg" alt="Ambiance 3" />
+            <div class="ambient-overlay">
+              <p>Un moment partagé,<br />entre inconnus qui deviennent un peu moins inconnus.</p>
             </div>
           </div>
         </div>
