@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiers-Lieux — Spectacles légers pour lieux vivants</title>
+    <meta
+      name="description"
+      content="Des spectacles légers, sensibles et accessibles, pensés pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment."
+    />
+    <style>
+      :root {
+        --sand: #f7f1e8;
+        --sand-deep: #efe4d3;
+        --card: rgba(255, 255, 255, 0.78);
+        --text: #2f2a24;
+        --muted: #6d655c;
+        --line: rgba(80, 68, 53, 0.12);
+        --green: #2f6a4c;
+        --green-soft: #97b48a;
+        --shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+        --radius-xl: 32px;
+        --radius-lg: 24px;
+        --radius-md: 18px;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(47, 106, 76, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(151, 180, 138, 0.12), transparent 22%),
+          linear-gradient(180deg, #f8f3ea 0%, #f4ecdf 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.25;
+        background-image: radial-gradient(#dccfbf 0.7px, transparent 0.7px);
+        background-size: 18px 18px;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        background: rgba(247, 241, 232, 0.82);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 18px 0;
+      }
+
+      .brand-kicker,
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--green);
+      }
+
+      .brand-sub {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        font-size: 14px;
+        color: #564d44;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 88vh;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+      }
+
+      .hero-media,
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      .hero-media {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-overlay {
+        background: linear-gradient(110deg, rgba(20, 18, 15, 0.72) 0%, rgba(20, 18, 15, 0.38) 45%, rgba(20, 18, 15, 0.18) 100%);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
+        padding: 100px 0 84px;
+        color: white;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        font-size: 14px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        margin-top: 22px;
+        font-size: clamp(42px, 7vw, 78px);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-text {
+        margin-top: 22px;
+        font-size: 20px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.88);
+        max-width: 670px;
+      }
+
+      .hero-actions,
+      .button-row,
+      .chip-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .hero-actions {
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 52px;
+        padding: 0 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: white;
+        color: var(--text);
+      }
+
+      .button-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: white;
+        backdrop-filter: blur(8px);
+      }
+
+      section {
+        padding: 84px 0;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .section-head {
+        text-align: center;
+        max-width: 860px;
+        margin: 0 auto 46px;
+      }
+
+      .section-head h2 {
+        margin-top: 14px;
+        font-size: clamp(34px, 5vw, 56px);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+        font-size: 18px;
+        line-height: 1.75;
+        color: var(--muted);
+      }
+
+      .promise-grid,
+      .about-grid,
+      .contact-grid {
+        display: grid;
+        gap: 32px;
+        align-items: center;
+      }
+
+      .promise-grid {
+        grid-template-columns: 1.02fr 1fr;
+        padding: 20px;
+      }
+
+      .promise-image,
+      .about-image {
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+      }
+
+      .promise-image img {
+        width: 100%;
+        height: 100%;
+        min-height: 380px;
+        object-fit: cover;
+      }
+
+      .promise-content {
+        padding: 12px 14px 12px 4px;
+      }
+
+      .promise-content h2,
+      .about-content h2,
+      .contact-copy h2 {
+        margin-top: 14px;
+        font-size: clamp(34px, 4.4vw, 54px);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+      }
+
+      .stack {
+        display: grid;
+        gap: 16px;
+      }
+
+      .promise-copy,
+      .about-copy,
+      .contact-copy p {
+        margin-top: 24px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .soft-box {
+        margin-top: 28px;
+        padding: 26px;
+        border-radius: var(--radius-lg);
+        background: #f7f2e8;
+      }
+
+      .soft-box h3 {
+        font-size: 24px;
+      }
+
+      .bullet {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .shows-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+      }
+
+      .carousel {
+        overflow: hidden;
+      }
+
+      .carousel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 24px;
+        border-bottom: 1px solid rgba(47, 42, 36, 0.08);
+      }
+
+      .carousel-head h3 {
+        font-size: 30px;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      .control {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(47, 42, 36, 0.12);
+        background: white;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .slides {
+        position: relative;
+        min-height: 430px;
+      }
+
+      .slide {
+        display: none;
+        min-height: 430px;
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      .slide > img,
+      .slide-image {
+        width: 100%;
+        height: 430px;
+        object-fit: cover;
+      }
+
+      .split-slide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 430px;
+      }
+
+      .split-slide .copy,
+      .text-slide {
+        display: flex;
+        align-items: center;
+        padding: 34px;
+      }
+
+      .text-slide-inner h4,
+      .split-slide h4 {
+        font-size: 34px;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+      }
+
+      .text-slide-inner p,
+      .split-slide p {
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 18px;
+      }
+
+      .meta {
+        margin-top: 18px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 12px !important;
+        color: #82796d !important;
+      }
+
+      .link-slide {
+        min-height: 430px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px;
+        text-align: center;
+        background: linear-gradient(135deg, #faf7f1 0%, #edf5ed 100%);
+      }
+
+      .link-slide p {
+        max-width: 430px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 18px;
+      }
+
+      .button-outline {
+        background: transparent;
+        border-color: rgba(47, 42, 36, 0.16);
+      }
+
+      .overlay-slide {
+        position: relative;
+        min-height: 430px;
+      }
+
+      .overlay-slide::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(20, 18, 15, 0.75), rgba(20, 18, 15, 0.18), transparent);
+      }
+
+      .overlay-copy {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        padding: 32px;
+        color: white;
+        font-size: 32px;
+        line-height: 1.18;
+        max-width: 520px;
+        white-space: pre-line;
+      }
+
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 24px 20px;
+        border-top: 1px solid rgba(47, 42, 36, 0.05);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 0;
+        background: #cfc5b8;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        width: 30px;
+        background: var(--green);
+      }
+
+      .ambient {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ambient-stage {
+        position: relative;
+        height: 520px;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.5);
+        box-shadow: 0 25px 100px rgba(0,0,0,0.12);
+      }
+
+      .ambient-stage img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      .ambient-stage img.active {
+        opacity: 1;
+      }
+
+      .ambient-overlay {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        padding: 34px;
+        background: linear-gradient(to top, rgba(20,18,15,0.66), transparent);
+      }
+
+      .ambient-overlay p {
+        color: white;
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        max-width: 760px;
+      }
+
+      .about-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+      }
+
+      .about-image {
+        min-height: 520px;
+        background: var(--card);
+        border: 1px solid rgba(255,255,255,0.5);
+        box-shadow: var(--shadow);
+      }
+
+      .about-image img {
+        width: 100%;
+        height: 100%;
+        min-height: 520px;
+        object-fit: cover;
+      }
+
+      .chip-row {
+        margin-top: 28px;
+      }
+
+      .chip {
+        padding: 11px 16px;
+        border-radius: 999px;
+        background: white;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        font-size: 14px;
+        color: #5e544a;
+      }
+
+      .contact-wrap {
+        padding: 34px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+        align-items: end;
+      }
+
+      .contact-note {
+        margin-top: 28px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        border-radius: 22px;
+        background: #f7f2e8;
+        padding: 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field,
+      .textarea {
+        width: 100%;
+        border: 1px solid #e3dbcf;
+        background: white;
+        border-radius: 18px;
+        padding: 15px 16px;
+        font: inherit;
+        color: var(--text);
+      }
+
+      .field {
+        min-height: 52px;
+      }
+
+      .textarea {
+        min-height: 160px;
+        resize: vertical;
+      }
+
+      .footer {
+        border-top: 1px solid rgba(80, 68, 53, 0.12);
+        padding: 24px 0 34px;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .icon {
+        font-style: normal;
+      }
+
+      @media (max-width: 1024px) {
+        .shows-grid,
+        .promise-grid,
+        .about-grid,
+        .contact-grid,
+        .split-slide {
+          grid-template-columns: 1fr;
+        }
+
+        .carousel-head h3 {
+          font-size: 26px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 68px 0;
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav {
+          gap: 14px 18px;
+        }
+
+        .hero-content {
+          padding: 88px 0 64px;
+        }
+
+        .hero-text,
+        .promise-copy,
+        .about-copy,
+        .contact-copy p,
+        .section-head p,
+        .text-slide-inner p,
+        .split-slide p,
+        .link-slide p {
+          font-size: 17px;
+        }
+
+        .ambient-stage,
+        .slide > img,
+        .slide-image,
+        .slides,
+        .slide,
+        .overlay-slide,
+        .link-slide {
+          min-height: 380px;
+          height: auto;
+        }
+
+        .ambient-stage {
+          height: 420px;
+        }
+
+        .promise-grid,
+        .contact-wrap {
+          padding: 18px;
+        }
+
+        .promise-content,
+        .split-slide .copy,
+        .text-slide,
+        .overlay-copy,
+        .ambient-overlay {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div>
+          <div class="brand-kicker">Tiers-Lieux</div>
+          <div class="brand-sub">Spectacles légers · rencontres vivantes</div>
+        </div>
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="#promesse">Promesse</a>
+          <a href="#spectacles">Spectacles</a>
+          <a href="#ambiance">Ambiance</a>
+          <a href="#apropos">À propos</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="Introduction">
+      <img
+        class="hero-media"
+        src="https://drive.google.com/uc?export=view&id=1f9Dzsi2Enje8AG82wrRA1oDmwkphYxQ6"
+        alt="Visuel d'accueil"
+      />
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div class="pill"><span class="icon">🌿</span> Spectacles pour lieux vivants</div>
+        <h1>Faire entrer le théâtre là où la vie circule déjà.</h1>
+        <p class="hero-text">
+          Des formes légères, sensibles et accessibles, pensées pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#contact">Accueillir un spectacle <span aria-hidden="true">→</span></a>
+          <a class="button button-secondary" href="#spectacles">Découvrir les spectacles</a>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="promesse">
+        <div class="container card promise-grid">
+          <div class="promise-image">
+            <img src="https://drive.google.com/uc?export=view&id=15cOQAmZqIGT7NBkvreZwC5EEsG5IEZOO" alt="Un moment à vivre ensemble" />
+          </div>
+          <div class="promise-content">
+            <div class="eyebrow">Promesse</div>
+            <h2>Un moment à vivre ensemble</h2>
+            <div class="stack promise-copy">
+              <p>
+                Et si un spectacle était un miroir, une joyeuse passerelle, une invitation à embrasser le foisonnement des aventures humaines, et à interroger en douceur nos propres postures ?
+              </p>
+              <p>Je propose des formes légères, adaptables, qui viennent s'inscrire dans la vie du lieu.</p>
+              <p>On est touché. On s'y reconnaît. On en parle après.</p>
+            </div>
+            <div class="soft-box">
+              <h3>Concrètement</h3>
+              <div class="stack" style="margin-top:18px">
+                <div class="bullet"><span>🎭</span><span>Des solos incarnés, facétieux, accessibles</span></div>
+                <div class="bullet"><span>🤝</span><span>Une proximité avec le public</span></div>
+                <div class="bullet"><span>🌿</span><span>Des formes adaptées aux lieux vivants</span></div>
+              </div>
+              <p style="margin-top:18px; color: var(--muted); line-height:1.8;">Pas besoin de scène ni de dispositif lourd. Le spectacle s'invite là où les gens sont.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="spectacles">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Les spectacles</div>
+            <h2>Deux formes légères, pensées pour faire réagir, sourire et dialoguer</h2>
+            <p>
+              Des propositions simples à accueillir, avec un vrai pouvoir de résonance dans les lieux où l'on partage déjà des idées, des repas, du travail ou des élans collectifs.
+            </p>
+          </div>
+
+          <div class="shows-grid">
+            <article class="card carousel" data-carousel>
+              <div class="carousel-head">
+                <h3>Les braderies de la Terre</h3>
+                <div class="controls">
+                  <button class="control" type="button" data-prev aria-label="Précédent">‹</button>
+                  <button class="control" type="button" data-next aria-label="Suivant">›</button>
+                </div>
+              </div>
+              <div class="slides">
+                <div class="slide active">
+                  <img src="https://drive.google.com/uc?export=view&id=1Ac7ig560kovXQ9EbXdoXeNDvNww-PnWb" alt="Affiche Les braderies de la Terre" />
+                </div>
+                <div class="slide">
+                  <div class="split-slide">
+                    <img class="slide-image" src="https://drive.google.com/uc?export=view&id=1Hs4eJw5tSmo2ModGlE0d-LS7MB74nYxm" alt="Visuel Les braderies de la Terre" />
+                    <div class="copy">
+                      <div>
+                        <h4>Les Braderies de la Terre</h4>
+                        <p>Un cabaret écologiste entre rire, poésie, chansons, et réflexion collective.</p>
+                        <p class="meta">1h15 · Tous publics · Dispositif léger</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="link-slide">
+                    <div style="font-size:48px">🎭</div>
+                    <p>Découvrez le teaser vidéo et le dossier complet du spectacle.</p>
+                    <div class="button-row">
+                      <a class="button button-primary" target="_blank" rel="noreferrer" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547">Le Teaser</a>
+                      <a class="button button-outline" target="_blank" rel="noreferrer" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41">Le Dossier</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="overlay-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=1iqMqXADVgP9YPsIpJx-b-rqKCKbsJicY" alt="Exposition pédagogique" />
+                    <div class="overlay-copy">Exposition pédagogique
+Possibilité d'organiser un débat quelques jours avant le spectacle</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dots">
+                <button class="dot active" type="button" aria-label="Diapositive 1"></button>
+                <button class="dot" type="button" aria-label="Diapositive 2"></button>
+                <button class="dot" type="button" aria-label="Diapositive 3"></button>
+                <button class="dot" type="button" aria-label="Diapositive 4"></button>
+              </div>
+            </article>
+
+            <article class="card carousel" data-carousel>
+              <div class="carousel-head">
+                <h3>J'irai chanter du Brahms dans un supermarché</h3>
+                <div class="controls">
+                  <button class="control" type="button" data-prev aria-label="Précédent">‹</button>
+                  <button class="control" type="button" data-next aria-label="Suivant">›</button>
+                </div>
+              </div>
+              <div class="slides">
+                <div class="slide active">
+                  <img src="https://drive.google.com/uc?export=view&id=1L_iILG60tTE4dJ3g3H_G1xUYabSDhYl4" alt="Affiche J'irai chanter du Brahms dans un supermarché" />
+                </div>
+                <div class="slide">
+                  <div class="text-slide">
+                    <div class="text-slide-inner">
+                      <h4>J'irai chanter du Brahms dans un supermarché</h4>
+                      <p>La journée déroutante d'un manager en crise.</p>
+                      <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
+                      <p class="meta">1h15 · Tous publics · Dispositif léger</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="link-slide">
+                    <div style="font-size:48px">🎼</div>
+                    <p>Découvrez le teaser vidéo et le dossier complet du spectacle.</p>
+                    <div class="button-row">
+                      <a class="button button-primary" target="_blank" rel="noreferrer" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7">Le Teaser</a>
+                      <a class="button button-outline" target="_blank" rel="noreferrer" href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0">Le Dossier</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dots">
+                <button class="dot active" type="button" aria-label="Diapositive 1"></button>
+                <button class="dot" type="button" aria-label="Diapositive 2"></button>
+                <button class="dot" type="button" aria-label="Diapositive 3"></button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="ambiance">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Ambiance</div>
+            <h2>Une présence artistique qui relie les personnes</h2>
+          </div>
+          <div class="ambient">
+            <div class="ambient-stage" data-ambient>
+              <img class="active" src="https://drive.google.com/uc?export=view&id=1yLsxwOk3M8TEH23q9gjY1rfdcprIU0-H" alt="Ambiance 1" />
+              <img src="https://drive.google.com/uc?export=view&id=1zyUhw6J32MYwM2hAXIDEE9AwXB0z25-1" alt="Ambiance 2" />
+              <img src="https://drive.google.com/uc?export=view&id=14KNwbZty7u7aACqYzbae8SeZZiKwokd3" alt="Ambiance 3" />
+              <div class="ambient-overlay">
+                <p>Un moment partagé,<br />entre inconnus qui deviennent un peu moins inconnus.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="apropos">
+        <div class="container about-grid">
+          <div class="about-image">
+            <img src="https://drive.google.com/uc?export=view&id=1QJE90h4rHSXCoRwyjS2RJFSp8QeBfslM" alt="Portrait de Serge Mascaro" />
+          </div>
+          <div class="about-content">
+            <div class="eyebrow">À propos</div>
+            <h2>Un parcours entre deux mondes</h2>
+            <div class="stack about-copy">
+              <p>Après 20 ans dans la transformation des organisations, je me suis tourné vers le théâtre.</p>
+              <p>Aujourd'hui, je crée des spectacles qui rendent visibles nos façons de penser, de décider, de nous raconter des histoires.</p>
+              <p>Sans chercher à convaincre. Mais en ouvrant des espaces de dialogue.</p>
+              <p>Créateur de passerelles, j'interviens également chez les particuliers, dans les établissements éducatifs, et dans les entreprises.</p>
+            </div>
+            <div class="chip-row">
+              <span class="chip">Tiers-lieux</span>
+              <span class="chip">Établissements éducatifs</span>
+              <span class="chip">Entreprises</span>
+              <span class="chip">Particuliers</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container card contact-wrap">
+          <div class="contact-grid">
+            <div class="contact-copy">
+              <div class="eyebrow">Contact</div>
+              <h2>Et si on en parlait ?</h2>
+              <p>Vous avez un lieu, une envie, une intuition ? Je serais heureux d'échanger avec vous.</p>
+              <div class="contact-note">
+                <span>📩</span>
+                <span>Le bouton ouvre votre messagerie avec votre adresse de destination déjà renseignée : <strong>serge.mascaro@gmail.com</strong>.</span>
+              </div>
+            </div>
+
+            <form class="contact-form" id="contact-form">
+              <input class="field" type="text" id="nom" name="nom" placeholder="Votre nom" />
+              <input class="field" type="text" id="lieu" name="lieu" placeholder="Nom du lieu" />
+              <textarea class="textarea" id="message" name="message" placeholder="Parlez-moi de votre lieu, de votre envie ou de votre intuition..."></textarea>
+              <a class="button button-primary" id="mailto-link" href="mailto:serge.mascaro@gmail.com">Me contacter <span aria-hidden="true">→</span></a>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>Une invitation au dialogue, au cœur des lieux vivants.</span>
+        <span>Site vitrine — version HTML déployable sur GitHub Pages</span>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+        const slides = Array.from(carousel.querySelectorAll('.slide'));
+        const dots = Array.from(carousel.querySelectorAll('.dot'));
+        const prev = carousel.querySelector('[data-prev]');
+        const next = carousel.querySelector('[data-next]');
+        let index = 0;
+        let timer;
+
+        function render() {
+          slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+          dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+
+        function goTo(newIndex) {
+          index = (newIndex + slides.length) % slides.length;
+          render();
+          restart();
+        }
+
+        function restart() {
+          clearInterval(timer);
+          timer = setInterval(() => {
+            index = (index + 1) % slides.length;
+            render();
+          }, 5000);
+        }
+
+        prev.addEventListener('click', () => goTo(index - 1));
+        next.addEventListener('click', () => goTo(index + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+        render();
+        restart();
+      });
+
+      const ambientImages = Array.from(document.querySelectorAll('[data-ambient] img'));
+      let ambientIndex = 0;
+      setInterval(() => {
+        ambientImages[ambientIndex].classList.remove('active');
+        ambientIndex = (ambientIndex + 1) % ambientImages.length;
+        ambientImages[ambientIndex].classList.add('active');
+      }, 3500);
+
+      const nom = document.getElementById('nom');
+      const lieu = document.getElementById('lieu');
+      const message = document.getElementById('message');
+      const mailtoLink = document.getElementById('mailto-link');
+
+      function updateMailto() {
+        const subject = encodeURIComponent(`Accueil d'un spectacle — ${lieu.value || 'Prise de contact'}`);
+        const body = encodeURIComponent(
+          `Bonjour,\n\nJe vous contacte au sujet d'un possible accueil de spectacle.\n\nNom : ${nom.value || ''}\nLieu : ${lieu.value || ''}\n\nMessage :\n${message.value || ''}\n`
+        );
+        mailtoLink.href = `mailto:serge.mascaro@gmail.com?subject=${subject}&body=${body}`;
+      }
+
+      [nom, lieu, message].forEach((field) => field.addEventListener('input', updateMailto));
+      updateMailto();
+    </script>
+  </body>
+</html>
