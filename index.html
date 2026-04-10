@@ -196,9 +196,9 @@
         width: 100%;
         overflow: hidden;
         background: transparent;
+        margin: 0;
+        padding: 0;
         line-height: 0;
-        margin-top: 0;
-        padding-top: 0;
       }
 
       .hero-media {
@@ -213,26 +213,15 @@
         display: none;
       }
 
-      .hero-content {
+      .hero-actions {
         position: absolute;
-        inset: 0;
-        z-index: 2;
+        left: 56px;
+        bottom: 18px;
+        z-index: 5;
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-start;
-        padding: 0 0 18px 0;
-        line-height: normal;
-      }
-
-      .hero-panel {
-        display: inline-flex;
-        flex-wrap: wrap;
         gap: 10px;
-        padding: 0;
-        background: transparent;
-        border: 0;
-        box-shadow: none;
-        backdrop-filter: none;
+        flex-wrap: wrap;
+        line-height: normal;
       }
 
       .button {
@@ -261,28 +250,26 @@
       }
 
       .button-primary,
-      .button-secondary,
-      .button-outline {
+      .button-secondary {
         background: rgba(255, 251, 245, 0.9);
         color: var(--text);
         box-shadow: none;
       }
 
       .button-primary:hover,
-      .button-secondary:hover,
-      .button-outline:hover {
+      .button-secondary:hover {
         background: rgba(255, 251, 245, 0.96);
       }
 
       section {
-        padding: 72px 0;
+        padding: 64px 0;
         position: relative;
         z-index: 1;
       }
 
       .section-head {
         max-width: 820px;
-        margin: 0 auto 38px;
+        margin: 0 auto 34px;
         text-align: center;
       }
 
@@ -786,25 +773,18 @@
           gap: 14px 18px;
         }
 
-        .hero-content {
-          padding: 0 0 12px 0;
-        }
-
-        .hero-panel {
-          width: calc(100% - 24px);
-          margin: 0 auto;
-        }
-
-        .hero-panel .button {
-          flex: 0 0 auto;
+        .hero-actions {
+          left: 16px;
+          bottom: 12px;
+          gap: 8px;
         }
 
         section {
-          padding: 58px 0;
+          padding: 54px 0;
         }
 
         .section-head {
-          margin-bottom: 32px;
+          margin-bottom: 30px;
         }
 
         .section-head p,
@@ -886,11 +866,9 @@
     <section class="hero" aria-label="Introduction">
       <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
 
-      <div class="container hero-content">
-        <div class="hero-panel">
-          <a class="button button-primary" href="#contact">accueillir</a>
-          <a class="button button-secondary" href="#spectacles">découvrir</a>
-        </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#contact">accueillir</a>
+        <a class="button button-secondary" href="#spectacles">découvrir</a>
       </div>
     </section>
 
