@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -50,7 +51,6 @@
         margin: 0;
         color: var(--text);
         font-family: var(--font-sans);
-        /* 2) Agrandissement du texte de base pour grand écran */
         font-size: 20px; 
         line-height: 1.72;
         text-rendering: optimizeLegibility;
@@ -62,6 +62,7 @@
           radial-gradient(circle at 18% 84%, rgba(151, 180, 138, 0.08), transparent 18%),
           radial-gradient(circle at 86% 86%, rgba(194, 168, 120, 0.1), transparent 18%),
           linear-gradient(180deg, #f7f3ea 0%, #f3ecde 100%);
+        overflow-x: hidden;
       }
 
       body::before {
@@ -144,7 +145,6 @@
 
       .nav a {
         position: relative;
-        /* 1) Menu en haut un peu plus gros */
         font-size: 18px; 
         font-weight: 600;
         color: #564d44;
@@ -248,7 +248,6 @@
         max-width: 760px;
         margin: 18px auto 0;
         color: var(--muted);
-        /* 2) Texte plus gros sur desktop */
         font-size: 21px; 
         line-height: 1.78;
       }
@@ -308,7 +307,6 @@
         gap: 14px;
       }
 
-      /* 2) Texte plus gros sur desktop */
       .promise-copy,
       .about-copy,
       .contact-copy p {
@@ -336,7 +334,6 @@
         align-items: flex-start;
         gap: 12px;
         color: var(--muted);
-        /* 2) Texte plus gros sur desktop */
         font-size: 20px; 
         line-height: 1.72;
       }
@@ -352,7 +349,9 @@
       }
 
       .carousel {
-        overflow: hidden;
+        overflow: visible; /* Important: Permet aux coins du cube 3D de ne pas être coupés lors de la rotation */
+        display: flex;
+        flex-direction: column;
       }
 
       .carousel-head {
@@ -386,48 +385,54 @@
         transition: background 0.2s ease, transform 0.2s ease;
       }
 
-      .slides {
+      /* === NOVEAU SYSTÈME CUBE 3D === */
+      .carousel-3d-scene {
         position: relative;
         height: 470px;
-        overflow: hidden;
-        perspective: 1400px;
-        transform-style: preserve-3d;
+        perspective: 1800px;
         background: rgba(255, 252, 246, 0.35);
+        z-index: 2; /* Garde le cube au-dessus */
       }
 
-      .slide {
+      .carousel-3d-rig {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .slide-3d {
         position: absolute;
         inset: 0;
-        opacity: 0;
-        visibility: hidden;
-        transform: rotateY(-90deg) scale(0.98);
-        transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.2, 1), opacity 0.5s ease;
+        background: var(--card-strong);
+        border: 1px solid rgba(47, 42, 36, 0.08);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        backface-visibility: hidden;
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
       }
 
-      .slide.active {
-        opacity: 1;
-        visibility: visible;
-        transform: rotateY(0deg) scale(1);
-        z-index: 2;
-        pointer-events: auto;
-      }
-
-      .slide > img,
+      .slide-3d > img,
       .slide-image {
         width: 100%;
-        height: 470px;
+        height: 100%;
         object-fit: cover;
       }
 
-      .split-slide .copy,
+      /* Contenus des faces */
+      .split-slide,
       .text-slide {
         display: flex;
         align-items: center;
-        padding: 38px;
-        height: 470px;
+        height: 100%;
       }
 
-      /* 2) Texte plus gros sur desktop */
+      .split-slide .copy,
+      .text-slide-inner {
+        padding: 38px;
+      }
+
       .text-slide-inner p,
       .split-slide p {
         margin-top: 14px;
@@ -436,12 +441,56 @@
         line-height: 1.8;
       }
 
+      /* Tuiles cliquables Teaser / Dossier pleine face */
+      .full-face-tile {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        text-decoration: none;
+      }
+
+      .full-face-tile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.75), rgba(0, 0, 0, 0.2));
+        transition: opacity 0.3s ease;
+      }
+
+      .full-face-tile:hover::before {
+        opacity: 0.9;
+      }
+
+      .cta-overlay {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-family: var(--font-serif);
+        font-size: 24px;
+        padding: 18px 34px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
+      }
+
+      .full-face-tile:hover .cta-overlay {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
       .teaser-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
         padding: 18px;
-        height: 470px;
+        height: 100%;
       }
 
       .teaser-tile {
@@ -473,14 +522,14 @@
 
       .overlay-slide {
         position: relative;
-        height: 470px;
+        height: 100%;
       }
 
       .overlay-slide::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(20, 18, 15, 0.78), transparent);
+        background: linear-gradient(to top, rgba(20, 18, 15, 0.85), rgba(20, 18, 15, 0.3));
       }
 
       .overlay-copy {
@@ -488,13 +537,20 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 1;
+        z-index: 2;
         padding: 34px;
         color: white;
+      }
+
+      .overlay-copy p {
         font-family: var(--font-serif);
-        font-size: 34px;
-        line-height: 1.12;
-        white-space: pre-line;
+        font-size: 28px;
+        line-height: 1.15;
+      }
+
+      .overlay-copy .button {
+        margin-top: 24px;
+        border-radius: 99px;
       }
 
       .dots {
@@ -503,6 +559,7 @@
         gap: 8px;
         padding: 16px 24px 20px;
         border-top: 1px solid rgba(47, 42, 36, 0.05);
+        margin-top: auto; /* Pousse les points vers le bas */
       }
 
       .dot {
@@ -596,7 +653,6 @@
         resize: vertical;
       }
 
-      /* 5) Arrondir les coins et agrandir le texte du bouton de contact */
       .contact-cta {
         min-height: 70px;
         font-size: 22px; 
@@ -604,8 +660,8 @@
         background: var(--green);
         color: white;
         box-shadow: 0 16px 34px rgba(47, 111, 94, 0.22);
-        border-radius: 999px; /* Coins arrondis */
-        text-transform: none; /* Respecter la casse "me contacter" demandée */
+        border-radius: 999px;
+        text-transform: none; 
       }
 
       .contact-cta:hover {
@@ -632,7 +688,6 @@
       }
 
       @media (max-width: 768px) {
-        /* 2) Sur smartphone c'est la bonne taille (on force le retour à la taille initiale) */
         body { font-size: 17px; }
         
         .topbar-inner {
@@ -646,7 +701,7 @@
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
-        .slides, .slide > img, .overlay-slide, .split-slide, .text-slide { height: 400px; min-height: 400px; }
+        .carousel-3d-scene, .slide-3d > img, .overlay-slide, .split-slide, .text-slide { height: 400px; min-height: 400px; }
         .ambient-stage { height: 430px; }
         .contact-cta { font-size: 19px; min-height: 60px; }
       }
@@ -732,7 +787,9 @@
           </div>
 
           <div class="shows-grid">
-            <article class="card carousel" data-carousel>
+            
+            <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
+            <article class="card carousel" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
                 <div class="controls">
@@ -741,42 +798,63 @@
                 </div>
               </div>
 
-              <div class="slides">
-                <div class="slide active">
-                  <img src="assets/braderies-affiche.jpg" alt="Affiche Les braderies de la Terre" />
-                </div>
-                <div class="slide">
-                  <div class="split-slide">
-                    <img class="slide-image" src="assets/braderies-visuel.jpg" alt="Visuel" />
-                    <div class="copy">
-                      <div>
-                        <h4>Les Braderies de la Terre</h4>
-                        <p>Un cabaret écologiste entre rire, poésie, chansons, et réflexion collective.</p>
-                        <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+              <!-- SCÈNE 3D -->
+              <div class="carousel-3d-scene" data-faces="4">
+                <div class="carousel-3d-rig">
+                  
+                  <!-- Face 1 : Titre / Affiche -->
+                  <div class="slide-3d">
+                    <img src="assets/braderies-affiche.jpg" alt="Affiche Les braderies de la Terre" />
+                  </div>
+                  
+                  <!-- Face 2 : Résumé et Fiche Technique -->
+                  <div class="slide-3d">
+                    <div class="split-slide">
+                      <img class="slide-image" src="assets/braderies-visuel.jpg" alt="Visuel" />
+                      <div class="copy">
+                        <div>
+                          <h4>Les Braderies de la Terre</h4>
+                          <p>Un cabaret écologiste entre rire, poésie, chansons, et réflexion collective.</p>
+                          <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="slide">
-                  <div class="teaser-grid">
-                    <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')"><span>Teaser</span></a>
-                    <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41" style="background-image:url('assets/mini_dossier_braderies.jpg')"><span>Dossier</span></a>
+                  
+                  <!-- Face 3 : Bande-annonce (Teaser) -->
+                  <div class="slide-3d">
+                    <a class="full-face-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')">
+                      <span class="cta-overlay">▶ Voir la bande-annonce</span>
+                    </a>
                   </div>
-                </div>
-                <div class="slide">
-                  <div class="overlay-slide">
-                    <img src="assets/braderies-expo.jpg" alt="Expo" />
-                    <div class="overlay-copy">Exposition pédagogique
-Possibilité d'organiser un débat quelques jours avant le spectacle</div>
+                  
+                  <!-- Face 4 : Dossier & Expo -->
+                  <div class="slide-3d">
+                    <div class="overlay-slide">
+                      <img src="assets/braderies-expo.jpg" alt="Expo" style="width:100%; height:100%; object-fit:cover;" />
+                      <div class="overlay-copy">
+                        <p>Exposition pédagogique & débats post-spectacle</p>
+                        <a class="button button-primary" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41" style="font-size:16px;">
+                          Télécharger le dossier complet
+                        </a>
+                      </div>
+                    </div>
                   </div>
+
                 </div>
               </div>
+
+              <!-- POINTS DE NAVIGATION -->
               <div class="dots">
-                <button class="dot active" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button>
+                <button class="dot active" type="button"></button>
+                <button class="dot" type="button"></button>
+                <button class="dot" type="button"></button>
+                <button class="dot" type="button"></button>
               </div>
             </article>
 
-            <article class="card carousel" data-carousel>
+            <!-- CUBE 2 : BRAHMS (3 FACES) -->
+            <article class="card carousel" data-carousel-3d>
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
                 <div class="controls">
@@ -784,31 +862,51 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
                   <button class="control" type="button" data-next>›</button>
                 </div>
               </div>
-              <div class="slides">
-                <div class="slide active">
-                  <img src="assets/brahms-affiche.jpg" alt="Affiche" />
-                </div>
-                <div class="slide">
-                  <div class="text-slide">
-                    <div class="text-slide-inner">
-                      <h4>J'irai chanter du Brahms dans un supermarché</h4>
-                      <p>La journée déroutante d'un manager en crise.</p>
-                      <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
-                      <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+
+              <!-- SCÈNE 3D -->
+              <div class="carousel-3d-scene" data-faces="3">
+                <div class="carousel-3d-rig">
+                  
+                  <!-- Face 1 : Titre / Affiche -->
+                  <div class="slide-3d">
+                    <img src="assets/brahms-affiche.jpg" alt="Affiche" />
+                  </div>
+                  
+                  <!-- Face 2 : Résumé -->
+                  <div class="slide-3d">
+                    <div class="text-slide">
+                      <div class="text-slide-inner">
+                        <h4>J'irai chanter du Brahms dans un supermarché</h4>
+                        <p>La journée déroutante d'un manager en crise.</p>
+                        <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
+                        <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="slide">
-                  <div class="teaser-grid">
-                    <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7" style="background-image:url('assets/mini_teaser_brahms.jpg')"><span>Teaser</span></a>
-                    <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0" style="background-image:url('assets/mini_dossier_brahms.jpg')"><span>Dossier</span></a>
+                  
+                  <!-- Face 3 : Bande-annonce et Dossier partagés -->
+                  <div class="slide-3d">
+                    <div class="teaser-grid">
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7" style="background-image:url('assets/mini_teaser_brahms.jpg')">
+                        <span>Teaser</span>
+                      </a>
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0" style="background-image:url('assets/mini_dossier_brahms.jpg')">
+                        <span>Dossier</span>
+                      </a>
+                    </div>
                   </div>
+
                 </div>
               </div>
+              
+              <!-- POINTS DE NAVIGATION -->
               <div class="dots">
-                <button class="dot active" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button>
+                <button class="dot active" type="button"></button>
+                <button class="dot" type="button"></button>
+                <button class="dot" type="button"></button>
               </div>
             </article>
+
           </div>
         </div>
       </section>
@@ -877,26 +975,79 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
     </footer>
 
     <script>
-      // Gestion des Carrousels
-      document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-        const slides = Array.from(carousel.querySelectorAll(".slide"));
+      // === GESTION DES CUBES 3D ===
+      document.querySelectorAll("[data-carousel-3d]").forEach((carousel) => {
+        const scene = carousel.querySelector(".carousel-3d-scene");
+        const rig = carousel.querySelector(".carousel-3d-rig");
+        const slides = Array.from(rig.querySelectorAll(".slide-3d"));
         const dots = Array.from(carousel.querySelectorAll(".dot"));
         const prev = carousel.querySelector("[data-prev]");
         const next = carousel.querySelector("[data-next]");
-        let index = 0;
+        
+        // Configuration de la géométrie
+        const numFaces = parseInt(scene.dataset.faces, 10);
+        const angle = 360 / numFaces;
+        let currentIndex = 0;
+        let currentRotation = 0;
 
-        function render(newIndex) {
-          slides.forEach((s, i) => s.classList.toggle("active", i === newIndex));
-          dots.forEach((d, i) => d.classList.toggle("active", i === newIndex));
-          index = newIndex;
+        function updateDisplay() {
+          // Gère la classe "active" sur les petits points (modulo sécurisé)
+          const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
+          dots.forEach((d, i) => d.classList.toggle("active", i === normalizedIndex));
+          
+          // Tourne le bloc central dans l'espace 3D
+          // L'astuce est de le reculer avec Z négatif, puis de le pivoter, pour garder l'effet de volume
+          rig.style.transform = `translateZ(calc(var(--tz) * -1)) rotateY(${-currentRotation}deg)`;
         }
 
-        prev.onclick = () => render((index - 1 + slides.length) % slides.length);
-        next.onclick = () => render((index + 1) % slides.length);
-        dots.forEach((d, i) => d.onclick = () => render(i));
+        // Observeur de redimensionnement : Recalcule la taille du cube si l'écran change de taille
+        const ro = new ResizeObserver(entries => {
+          for (let entry of entries) {
+            const width = entry.contentRect.width;
+            // Mathématiques pour la distance du centre (Apothème) : width/2 divisé par tangente(demi-angle)
+            const tz = (width / 2) / Math.tan(Math.PI / numFaces);
+            scene.style.setProperty('--tz', `${tz}px`);
+            
+            // Applique la bonne orientation et profondeur à chaque face
+            slides.forEach((slide, i) => {
+              slide.style.transform = `rotateY(${i * angle}deg) translateZ(var(--tz))`;
+            });
+            
+            updateDisplay();
+          }
+        });
+        ro.observe(scene);
+
+        // Écouteurs de clics (Flèches)
+        prev.onclick = () => {
+          currentIndex--;
+          currentRotation -= angle;
+          updateDisplay();
+        };
+        
+        next.onclick = () => {
+          currentIndex++;
+          currentRotation += angle;
+          updateDisplay();
+        };
+        
+        // Écouteurs de clics (Points du bas)
+        dots.forEach((d, i) => {
+          d.onclick = () => {
+            const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
+            let diff = i - normalizedIndex;
+            // Optimisation : Prendre le chemin de rotation le plus court
+            if (Math.abs(diff) > numFaces / 2) {
+              diff = diff > 0 ? diff - numFaces : diff + numFaces;
+            }
+            currentIndex += diff;
+            currentRotation += diff * angle;
+            updateDisplay();
+          };
+        });
       });
 
-      // Diaporama Ambiance
+      // Diaporama Ambiance (Conservé à l'identique)
       const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
       let ambientIndex = 0;
       setInterval(() => {
@@ -905,7 +1056,7 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
         ambientImages[ambientIndex].classList.add("active");
       }, 3500);
 
-      // Générateur Mailto
+      // Générateur Mailto (Conservé à l'identique)
       const nom = document.getElementById("nom");
       const lieu = document.getElementById("lieu");
       const message = document.getElementById("message");
@@ -920,3 +1071,5 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
     </script>
   </body>
 </html>
+
+```
