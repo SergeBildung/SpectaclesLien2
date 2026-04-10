@@ -145,7 +145,7 @@
 
       .nav a {
         position: relative;
-        font-size: 18px; 
+        font-size: 22px; /* Police agrandie pour le menu */
         font-weight: 600;
         color: #564d44;
         transition: color 0.25s ease;
@@ -349,7 +349,7 @@
       }
 
       .carousel {
-        overflow: visible; /* Important: Permet aux coins du cube 3D de ne pas être coupés lors de la rotation */
+        overflow: visible; 
         display: flex;
         flex-direction: column;
       }
@@ -357,8 +357,7 @@
       .carousel-head {
         display: flex;
         align-items: flex-start;
-        justify-content: space-between;
-        gap: 20px;
+        justify-content: center; /* Centré car les flèches sont maintenant sur le cube */
         padding: 24px 24px 20px;
         border-bottom: 1px solid rgba(47, 42, 36, 0.08);
       }
@@ -366,32 +365,53 @@
       .carousel-head h3 {
         font-size: 32px;
         line-height: 1.12;
+        text-align: center;
       }
 
-      .controls {
-        display: flex;
-        gap: 8px;
-        flex-shrink: 0;
-      }
-
-      .control {
-        width: 44px;
-        height: 44px;
-        border-radius: 999px;
-        border: 1px solid rgba(47, 42, 36, 0.12);
-        background: rgba(255, 255, 255, 0.9);
-        font-size: 20px;
-        cursor: pointer;
-        transition: background 0.2s ease, transform 0.2s ease;
-      }
-
-      /* === NOVEAU SYSTÈME CUBE 3D === */
+      /* === SYSTÈME CUBE 3D & BOUTONS === */
       .carousel-3d-scene {
         position: relative;
         height: 470px;
         perspective: 1800px;
         background: rgba(255, 252, 246, 0.35);
-        z-index: 2; /* Garde le cube au-dessus */
+        z-index: 2;
+      }
+
+      /* Gros boutons de navigation superposés au cube */
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20; 
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--card-strong);
+        border: 2px solid var(--green);
+        color: var(--green);
+        font-size: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        transition: all 0.2s ease;
+        user-select: none;
+        padding-bottom: 4px; /* Centrage optique du chevron */
+      }
+
+      .carousel-btn:hover {
+        background: var(--green);
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .carousel-btn.prev {
+        left: 15px;
+      }
+
+      .carousel-btn.next {
+        right: 15px;
       }
 
       .carousel-3d-rig {
@@ -420,7 +440,6 @@
         object-fit: cover;
       }
 
-      /* Contenus des faces */
       .split-slide,
       .text-slide {
         display: flex;
@@ -441,50 +460,6 @@
         line-height: 1.8;
       }
 
-      /* Tuiles cliquables Teaser / Dossier pleine face */
-      .full-face-tile {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        text-decoration: none;
-      }
-
-      .full-face-tile::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(10, 10, 10, 0.75), rgba(0, 0, 0, 0.2));
-        transition: opacity 0.3s ease;
-      }
-
-      .full-face-tile:hover::before {
-        opacity: 0.9;
-      }
-
-      .cta-overlay {
-        position: relative;
-        z-index: 2;
-        color: white;
-        font-family: var(--font-serif);
-        font-size: 24px;
-        padding: 18px 34px;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 99px;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(8px);
-        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
-      }
-
-      .full-face-tile:hover .cta-overlay {
-        transform: scale(1.05);
-        background: rgba(255, 255, 255, 0.1);
-      }
-
       .teaser-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -503,6 +478,7 @@
         color: white;
         background-position: center;
         background-size: cover;
+        text-decoration: none;
       }
 
       .teaser-tile::before {
@@ -510,6 +486,11 @@
         position: absolute;
         inset: 0;
         background: linear-gradient(to top, rgba(10, 10, 10, 0.7), transparent);
+        transition: opacity 0.3s ease;
+      }
+
+      .teaser-tile:hover::before {
+        opacity: 0.9;
       }
 
       .teaser-tile span {
@@ -518,6 +499,11 @@
         font-family: var(--font-serif);
         font-size: clamp(26px, 3vw, 38px);
         font-weight: 600;
+        transition: transform 0.3s ease;
+      }
+
+      .teaser-tile:hover span {
+        transform: translateY(-4px);
       }
 
       .overlay-slide {
@@ -548,18 +534,13 @@
         line-height: 1.15;
       }
 
-      .overlay-copy .button {
-        margin-top: 24px;
-        border-radius: 99px;
-      }
-
       .dots {
         display: flex;
         justify-content: center;
         gap: 8px;
         padding: 16px 24px 20px;
         border-top: 1px solid rgba(47, 42, 36, 0.05);
-        margin-top: auto; /* Pousse les points vers le bas */
+        margin-top: auto;
       }
 
       .dot {
@@ -655,17 +636,23 @@
 
       .contact-cta {
         min-height: 70px;
-        font-size: 22px; 
+        font-size: 26px; /* Police beaucoup plus grande */
         font-weight: 700;
         background: var(--green);
         color: white;
         box-shadow: 0 16px 34px rgba(47, 111, 94, 0.22);
         border-radius: 999px;
         text-transform: none; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.2s ease, transform 0.2s ease;
       }
 
       .contact-cta:hover {
         background: #295f51;
+        transform: translateY(-2px);
       }
 
       .footer {
@@ -696,14 +683,20 @@
           align-items: flex-start;
         }
         .nav { gap: 14px 18px; }
-        .nav a { font-size: 16px; }
+        .nav a { font-size: 18px; } /* Ajustement mobile */
 
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
         .carousel-3d-scene, .slide-3d > img, .overlay-slide, .split-slide, .text-slide { height: 400px; min-height: 400px; }
+        
+        /* Boutons 360 ajustés pour mobile */
+        .carousel-btn { width: 48px; height: 48px; font-size: 28px; }
+        .carousel-btn.prev { left: 5px; }
+        .carousel-btn.next { right: 5px; }
+
         .ambient-stage { height: 430px; }
-        .contact-cta { font-size: 19px; min-height: 60px; }
+        .contact-cta { font-size: 22px; min-height: 60px; }
       }
     </style>
   </head>
@@ -783,7 +776,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Les spectacles</div>
-            <h2>Deux formes légères pour rire et échanger</h2>
+            <h2>Deux solos pour rire et échanger</h2>
           </div>
 
           <div class="shows-grid">
@@ -792,14 +785,14 @@
             <article class="card carousel" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
-                <div class="controls">
-                  <button class="control" type="button" data-prev>‹</button>
-                  <button class="control" type="button" data-next>›</button>
-                </div>
               </div>
 
               <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="4">
+                <!-- Boutons interactifs positionnés sur les côtés -->
+                <button class="carousel-btn prev" type="button" data-prev>‹</button>
+                <button class="carousel-btn next" type="button" data-next>›</button>
+
                 <div class="carousel-3d-rig">
                   
                   <!-- Face 1 : Titre / Affiche -->
@@ -821,22 +814,24 @@
                     </div>
                   </div>
                   
-                  <!-- Face 3 : Bande-annonce (Teaser) -->
+                  <!-- Face 3 : Bande-annonce & Dossier (Disposition comme Brahms) -->
                   <div class="slide-3d">
-                    <a class="full-face-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')">
-                      <span class="cta-overlay">▶ Voir la bande-annonce</span>
-                    </a>
+                    <div class="teaser-grid">
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')">
+                        <span>Teaser</span>
+                      </a>
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41" style="background-image:url('assets/mini_dossier_braderies.jpg')">
+                        <span>Dossier</span>
+                      </a>
+                    </div>
                   </div>
                   
-                  <!-- Face 4 : Dossier & Expo -->
+                  <!-- Face 4 : Expo (reste seule sur sa face) -->
                   <div class="slide-3d">
                     <div class="overlay-slide">
                       <img src="assets/braderies-expo.jpg" alt="Expo" style="width:100%; height:100%; object-fit:cover;" />
                       <div class="overlay-copy">
                         <p>Exposition pédagogique & débats post-spectacle</p>
-                        <a class="button button-primary" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41" style="font-size:16px;">
-                          Télécharger le dossier complet
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -857,14 +852,14 @@
             <article class="card carousel" data-carousel-3d>
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
-                <div class="controls">
-                  <button class="control" type="button" data-prev>‹</button>
-                  <button class="control" type="button" data-next>›</button>
-                </div>
               </div>
 
               <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="3">
+                <!-- Boutons interactifs positionnés sur les côtés -->
+                <button class="carousel-btn prev" type="button" data-prev>‹</button>
+                <button class="carousel-btn next" type="button" data-next>›</button>
+
                 <div class="carousel-3d-rig">
                   
                   <!-- Face 1 : Titre / Affiche -->
@@ -884,7 +879,7 @@
                     </div>
                   </div>
                   
-                  <!-- Face 3 : Bande-annonce et Dossier partagés -->
+                  <!-- Face 3 : Bande-annonce et Dossier -->
                   <div class="slide-3d">
                     <div class="teaser-grid">
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7" style="background-image:url('assets/mini_teaser_brahms.jpg')">
@@ -915,7 +910,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Ambiance</div>
-            <h2>Une présence artistique qui relie les personnes</h2>
+            <h2>Se relier par l'art</h2>
           </div>
           <div class="ambient-stage" data-ambient>
             <img class="active" src="assets/ambiance-1.jpg" alt="Ambiance 1" />
@@ -960,7 +955,7 @@
               
               <a class="button contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
                 me contacter
-                <span aria-hidden="true" style="margin-left:10px">→</span>
+                <span aria-hidden="true" style="margin-left:14px">→</span>
               </a>
             </form>
           </div>
@@ -996,7 +991,6 @@
           dots.forEach((d, i) => d.classList.toggle("active", i === normalizedIndex));
           
           // Tourne le bloc central dans l'espace 3D
-          // L'astuce est de le reculer avec Z négatif, puis de le pivoter, pour garder l'effet de volume
           rig.style.transform = `translateZ(calc(var(--tz) * -1)) rotateY(${-currentRotation}deg)`;
         }
 
@@ -1004,7 +998,7 @@
         const ro = new ResizeObserver(entries => {
           for (let entry of entries) {
             const width = entry.contentRect.width;
-            // Mathématiques pour la distance du centre (Apothème) : width/2 divisé par tangente(demi-angle)
+            // Mathématiques pour la distance du centre (Apothème)
             const tz = (width / 2) / Math.tan(Math.PI / numFaces);
             scene.style.setProperty('--tz', `${tz}px`);
             
@@ -1018,7 +1012,7 @@
         });
         ro.observe(scene);
 
-        // Écouteurs de clics (Flèches)
+        // Écouteurs de clics (Grosses flèches sur les côtés)
         prev.onclick = () => {
           currentIndex--;
           currentRotation -= angle;
@@ -1047,7 +1041,7 @@
         });
       });
 
-      // Diaporama Ambiance (Conservé à l'identique)
+      // Diaporama Ambiance
       const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
       let ambientIndex = 0;
       setInterval(() => {
@@ -1056,7 +1050,7 @@
         ambientImages[ambientIndex].classList.add("active");
       }, 3500);
 
-      // Générateur Mailto (Conservé à l'identique)
+      // Générateur Mailto
       const nom = document.getElementById("nom");
       const lieu = document.getElementById("lieu");
       const message = document.getElementById("message");
@@ -1071,5 +1065,6 @@
     </script>
   </body>
 </html>
+
 
 ```
