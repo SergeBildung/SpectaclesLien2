@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Spectacles légers · rencontres vivantes</title>
+    <title>Tiers-Lieux — Spectacles légers pour lieux vivants</title>
     <meta
       name="description"
       content="Des spectacles légers, sensibles et accessibles, pensés pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment."
@@ -19,7 +19,7 @@
       :root {
         --sand: #f5f2e8;
         --sand-deep: #e8dcc3;
-        --card: rgba(255, 251, 245, 0.82);
+        --card: rgba(255, 251, 245, 0.8);
         --card-strong: rgba(255, 251, 245, 0.92);
         --text: #0b0b0b;
         --muted: #5e5951;
@@ -137,24 +137,26 @@
       }
 
       .topbar-inner {
-        min-height: 72px;
+        min-height: 76px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 24px;
       }
 
-      .header-title {
-        font-size: 14px;
-        color: var(--muted-soft);
-      }
-
+      .brand-kicker,
       .eyebrow {
         text-transform: uppercase;
         letter-spacing: 0.24em;
         font-size: 12px;
         font-weight: 600;
         color: var(--green);
+      }
+
+      .brand-sub {
+        margin-top: 2px;
+        font-size: 14px;
+        color: var(--muted-soft);
       }
 
       .nav {
@@ -194,15 +196,36 @@
       .hero {
         position: relative;
         width: 100%;
-        line-height: 0;
         overflow: hidden;
-        background: transparent;
+        background: #ede4d3;
       }
 
       .hero-media {
+        position: relative;
         display: block;
         width: 100%;
         height: auto;
+        object-fit: contain;
+        object-position: center center;
+      }
+
+      .hero-overlay,
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .hero-overlay {
+        background:
+          linear-gradient(180deg, rgba(17, 14, 12, 0.02) 0%, rgba(17, 14, 12, 0.08) 68%, rgba(17, 14, 12, 0.18) 100%);
+      }
+
+      .hero-glow {
+        background:
+          radial-gradient(circle at 14% 22%, rgba(255, 255, 255, 0.16), transparent 18%),
+          radial-gradient(circle at 84% 18%, rgba(255, 255, 255, 0.1), transparent 18%);
+        mix-blend-mode: screen;
       }
 
       .hero-content {
@@ -211,40 +234,70 @@
         z-index: 2;
         display: flex;
         align-items: flex-end;
-        padding: 0 0 18px;
-        pointer-events: none;
+        padding: 0 0 28px 0;
       }
 
-      .hero-buttons {
-        display: flex;
-        gap: 10px;
+      .hero-panel {
+        display: inline-flex;
         flex-wrap: wrap;
-        pointer-events: auto;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 999px;
+        background: rgba(245, 242, 232, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: 0 18px 44px rgba(17, 14, 12, 0.16);
+        backdrop-filter: blur(14px);
       }
 
-      .hero-button {
+      .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 0;
-        padding: 6px 10px;
+        gap: 10px;
+        min-height: 54px;
+        padding: 0 24px;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.82);
-        background: rgba(255, 251, 245, 0.16);
-        color: white;
+        border: 1px solid transparent;
         font-family: var(--font-sans);
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
-        line-height: 1;
         letter-spacing: 0.01em;
-        backdrop-filter: blur(8px);
-        box-shadow: 0 8px 18px rgba(12, 10, 8, 0.12);
-        transition: transform 0.2s ease, background 0.2s ease;
+        cursor: pointer;
+        transition:
+          transform 0.22s ease,
+          background 0.22s ease,
+          border-color 0.22s ease,
+          color 0.22s ease,
+          box-shadow 0.22s ease;
       }
 
-      .hero-button:hover {
+      .button:hover {
         transform: translateY(-1px);
-        background: rgba(255, 251, 245, 0.24);
+      }
+
+      .button-primary {
+        background: rgba(255, 251, 245, 0.96);
+        color: var(--text);
+        box-shadow: 0 10px 24px rgba(12, 10, 8, 0.08);
+      }
+
+      .button-primary:hover {
+        background: #fffdf9;
+      }
+
+      .button-secondary {
+        color: white;
+        background: rgba(255, 255, 255, 0.09);
+        border-color: rgba(255, 255, 255, 0.26);
+      }
+
+      .button-secondary:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .button-outline {
+        background: transparent;
+        border-color: rgba(47, 42, 36, 0.16);
       }
 
       section {
@@ -760,16 +813,18 @@
         }
 
         .hero-content {
-          padding: 0 0 10px;
+          padding: 0 0 16px 0;
         }
 
-        .hero-buttons {
-          gap: 8px;
+        .hero-panel {
+          width: calc(100% - 24px);
+          margin: 0 auto;
+          border-radius: 26px;
+          padding: 12px;
         }
 
-        .hero-button {
-          padding: 6px 10px;
-          font-size: 13px;
+        .hero-panel .button {
+          flex: 1 1 220px;
         }
 
         section {
@@ -844,7 +899,10 @@
   <body>
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="header-title">Spectacles légers · rencontres vivantes</div>
+        <div>
+          <div class="brand-kicker">tiers-lieux</div>
+          <div class="brand-sub">Spectacles légers · rencontres vivantes</div>
+        </div>
 
         <nav class="nav" aria-label="Navigation principale">
           <a href="#promesse">Promesse</a>
@@ -857,12 +915,19 @@
     </header>
 
     <section class="hero" aria-label="Introduction">
-      <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
+      <img class="hero-media" src="assets/hero.jpg" alt="Visuel d'accueil" />
+      <div class="hero-overlay"></div>
+      <div class="hero-glow"></div>
 
       <div class="container hero-content">
-        <div class="hero-buttons">
-          <a class="hero-button" href="#contact">accueillir</a>
-          <a class="hero-button" href="#spectacles">découvrir</a>
+        <div class="hero-panel">
+          <a class="button button-primary" href="#contact">
+            Accueillir un spectacle
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="button button-secondary" href="#spectacles">
+            Découvrir un spectacle
+          </a>
         </div>
       </div>
     </section>
@@ -882,10 +947,13 @@
               <p>
                 Et si un spectacle était un miroir, une joyeuse passerelle, une
                 invitation à embrasser le foisonnement des aventures humaines, et à
-                nous interroger en douceur ?
+                interroger en douceur nos propres postures&nbsp;?
               </p>
-              <p>Je propose des formes légères et adaptables.</p>
-              <p>On est touché. On s’y reconnaît. On en parle après.</p>
+              <p>
+                Je propose des formes légères, adaptables, qui viennent s'inscrire
+                dans la vie du lieu.
+              </p>
+              <p>On est touché. On s'y reconnaît. On en parle après.</p>
             </div>
 
             <div class="soft-box">
@@ -906,7 +974,7 @@
                 </div>
                 <div class="bullet">
                   <span>🪶</span>
-                  <span>Pas besoin de scène. Une installation proche du public.</span>
+                  <span>Pas besoin de scène. Une installation légère, au plus proche du public.</span>
                 </div>
               </div>
             </div>
@@ -918,7 +986,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Les spectacles</div>
-            <h2>Deux formes légères pour rire et échanger</h2>
+            <h2>Deux formes légères pour s'émouvoir, sourire et échanger</h2>
           </div>
 
           <div class="shows-grid">
@@ -939,3 +1007,282 @@
                 <div class="slide">
                   <div class="split-slide">
                     <img
+                      class="slide-image"
+                      src="assets/braderies-visuel.jpg"
+                      alt="Visuel Les braderies de la Terre"
+                    />
+                    <div class="copy">
+                      <div>
+                        <h4>Les Braderies de la Terre</h4>
+                        <p>
+                          Un cabaret écologiste entre rire, poésie, chansons, et
+                          réflexion collective.
+                        </p>
+                        <p class="meta">1h15 · Tous publics · Dispositif léger</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <div class="teaser-grid">
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547"
+                      style="background-image:url('assets/mini_teaser_braderies.jpg')"
+                    >
+                      <span>Teaser</span>
+                    </a>
+
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41"
+                      style="background-image:url('assets/mini_dossier_braderies.jpg')"
+                    >
+                      <span>Dossier</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <div class="overlay-slide">
+                    <img src="assets/braderies-expo.jpg" alt="Exposition pédagogique" />
+                    <div class="overlay-copy">Exposition pédagogique
+Possibilité d'organiser un débat quelques jours avant le spectacle</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dots">
+                <button class="dot active" type="button" aria-label="Diapositive 1"></button>
+                <button class="dot" type="button" aria-label="Diapositive 2"></button>
+                <button class="dot" type="button" aria-label="Diapositive 3"></button>
+                <button class="dot" type="button" aria-label="Diapositive 4"></button>
+              </div>
+            </article>
+
+            <article class="card carousel" data-carousel>
+              <div class="carousel-head">
+                <h3>J'irai chanter du Brahms dans un supermarché</h3>
+                <div class="controls">
+                  <button class="control" type="button" data-prev aria-label="Précédent">‹</button>
+                  <button class="control" type="button" data-next aria-label="Suivant">›</button>
+                </div>
+              </div>
+
+              <div class="slides">
+                <div class="slide active">
+                  <img
+                    src="assets/brahms-affiche.jpg"
+                    alt="Affiche J'irai chanter du Brahms dans un supermarché"
+                  />
+                </div>
+
+                <div class="slide">
+                  <div class="text-slide">
+                    <div class="text-slide-inner">
+                      <h4>J'irai chanter du Brahms dans un supermarché</h4>
+                      <p>La journée déroutante d'un manager en crise.</p>
+                      <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
+                      <p class="meta">1h15 · Tous publics · Dispositif léger</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <div class="teaser-grid">
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7"
+                      style="background-image:url('assets/mini_teaser_brahms.jpg')"
+                    >
+                      <span>Teaser</span>
+                    </a>
+
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0"
+                      style="background-image:url('assets/mini_dossier_brahms.jpg')"
+                    >
+                      <span>Dossier</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dots">
+                <button class="dot active" type="button" aria-label="Diapositive 1"></button>
+                <button class="dot" type="button" aria-label="Diapositive 2"></button>
+                <button class="dot" type="button" aria-label="Diapositive 3"></button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="ambiance">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Ambiance</div>
+            <h2>Une présence artistique qui relie les personnes</h2>
+          </div>
+
+          <div class="ambient-stage" data-ambient>
+            <img class="active" src="assets/ambiance-1.jpg" alt="Ambiance 1" />
+            <img src="assets/ambiance-2.jpg" alt="Ambiance 2" />
+            <img src="assets/ambiance-3.jpg" alt="Ambiance 3" />
+
+            <div class="ambient-overlay">
+              <p>
+                Un moment partagé,<br />
+                entre inconnus qui deviennent un peu moins inconnus.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="apropos">
+        <div class="container about-grid">
+          <div class="about-image">
+            <img src="assets/portrait.jpg" alt="Portrait de Serge Mascaro" />
+          </div>
+
+          <div class="about-content">
+            <div class="eyebrow">À propos</div>
+            <h2>Un parcours entre deux mondes</h2>
+
+            <div class="stack about-copy">
+              <p>
+                Après 20 ans dans la transformation des organisations, je me suis
+                tourné vers le théâtre.
+              </p>
+              <p>
+                Aujourd'hui, je crée des spectacles qui rendent visibles nos façons
+                de penser, de décider, de nous raconter des histoires.
+              </p>
+              <p>
+                Sans chercher à convaincre. Mais en ouvrant des espaces de dialogue.
+              </p>
+              <p>
+                Créateur de passerelles, j'interviens également chez les
+                particuliers, dans les établissements éducatifs, et dans les
+                entreprises.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container card contact-wrap">
+          <div class="contact-grid">
+            <div class="contact-copy">
+              <div class="eyebrow">Contact</div>
+              <h2>Et si on en parlait ?</h2>
+              <p>
+                Vous avez un lieu, une envie, une intuition ? Je serais heureux
+                d'échanger avec vous.
+              </p>
+            </div>
+
+            <form class="contact-form" id="contact-form">
+              <input class="field" type="text" id="nom" name="nom" placeholder="Votre nom" />
+              <input class="field" type="text" id="lieu" name="lieu" placeholder="Nom du lieu" />
+              <textarea
+                class="textarea"
+                id="message"
+                name="message"
+                placeholder="Parlez-moi de votre lieu, de votre envie ou de votre intuition..."
+              ></textarea>
+
+              <a class="button contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
+                Me contacter
+                <span aria-hidden="true">→</span>
+              </a>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>Une invitation au dialogue, au cœur des lieux vivants.</span>
+        <span>Site vitrine — version HTML déployable sur GitHub Pages</span>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+        const slides = Array.from(carousel.querySelectorAll(".slide"));
+        const dots = Array.from(carousel.querySelectorAll(".dot"));
+        const prev = carousel.querySelector("[data-prev]");
+        const next = carousel.querySelector("[data-next]");
+        let index = 0;
+
+        function render(newIndex, direction = 1) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove("active", "from-left", "from-right");
+            if (i !== newIndex) {
+              slide.classList.add(direction > 0 ? "from-right" : "from-left");
+            }
+          });
+
+          requestAnimationFrame(() => {
+            slides[newIndex].classList.remove("from-left", "from-right");
+            slides[newIndex].classList.add("active");
+          });
+
+          dots.forEach((dot, i) => dot.classList.toggle("active", i === newIndex));
+          index = newIndex;
+        }
+
+        function goTo(newIndex) {
+          const normalized = (newIndex + slides.length) % slides.length;
+          const direction = normalized > index || (index === slides.length - 1 && normalized === 0) ? 1 : -1;
+          render(normalized, direction);
+        }
+
+        prev.addEventListener("click", () => goTo(index - 1));
+        next.addEventListener("click", () => goTo(index + 1));
+        dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
+
+        render(0, 1);
+      });
+
+      const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
+      let ambientIndex = 0;
+
+      setInterval(() => {
+        ambientImages[ambientIndex].classList.remove("active");
+        ambientIndex = (ambientIndex + 1) % ambientImages.length;
+        ambientImages[ambientIndex].classList.add("active");
+      }, 3500);
+
+      const nom = document.getElementById("nom");
+      const lieu = document.getElementById("lieu");
+      const message = document.getElementById("message");
+      const mailtoLink = document.getElementById("mailto-link");
+
+      function updateMailto() {
+        const subject = encodeURIComponent(`Accueil d'un spectacle — ${lieu.value || "Prise de contact"}`);
+        const body = encodeURIComponent(
+          `Bonjour,\n\nJe vous contacte au sujet d'un possible accueil de spectacle.\n\nNom : ${nom.value || ""}\nLieu : ${lieu.value || ""}\n\nMessage :\n${message.value || ""}\n`
+        );
+        mailtoLink.href = `mailto:serge.mascaro@gmail.com?subject=${subject}&body=${body}`;
+      }
+
+      [nom, lieu, message].forEach((field) => field.addEventListener("input", updateMailto));
+      updateMailto();
+    </script>
+  </body>
+</html>
