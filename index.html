@@ -99,6 +99,17 @@
         letter-spacing: -0.02em;
       }
 
+      /* === ANIMATIONS AU DÉFILEMENT (REVEAL) === */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       .container {
         width: min(var(--max), calc(100% - 34px));
         margin: 0 auto;
@@ -205,7 +216,7 @@
         justify-content: center;
         min-height: auto;
         padding: 4pt 10pt;
-        border-radius: 8px; /* MODIFICATION : coins très légèrement arrondis */
+        border-radius: 8px; /* Coins arrondis */
         border: 1px solid rgba(255, 255, 255, 0.95);
         font-family: var(--font-sans);
         font-size: 16px;
@@ -374,6 +385,11 @@
         perspective: 1800px;
         background: rgba(255, 252, 246, 0.35);
         z-index: 2;
+        cursor: grab; /* Indique que l'élément est glissable */
+      }
+
+      .carousel-3d-scene:active {
+        cursor: grabbing;
       }
 
       .carousel-btn {
@@ -418,8 +434,9 @@
         position: absolute;
         transform-style: preserve-3d;
         transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        pointer-events: none; /* Empêche les images de bloquer le drag */
       }
-
+      
       .slide-3d {
         position: absolute;
         inset: 0;
@@ -429,26 +446,46 @@
         overflow: hidden;
         backface-visibility: hidden;
         box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+        pointer-events: auto; /* Réactive le pointer pour le contenu */
       }
 
-      .slide-3d > img,
-      .slide-image {
+      .slide-3d > img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
 
-      .split-slide,
+      /* === AJUSTEMENT ILLUSTRATION DE DESCRIPTION (SPLIT SLIDE) === */
+      .split-slide {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        gap: 20px;
+      }
+
+      .split-slide .slide-image {
+        width: 38%;
+        height: auto;
+        max-height: 85%;
+        object-fit: contain; /* S'ajuste en hauteur sans déborder ni recadrer */
+        border-radius: 12px;
+        margin-left: 38px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12); /* Ajoute du relief */
+      }
+
+      .split-slide .copy {
+        flex: 1;
+        padding: 38px 48px 38px 20px;
+      }
+
       .text-slide {
         display: flex;
         align-items: center;
         height: 100%;
       }
 
-      .split-slide .copy,
       .text-slide-inner {
         padding: 38px;
-        flex: 1; /* Permet à la copie de prendre l'espace restant */
       }
 
       .text-slide-inner p,
@@ -472,9 +509,8 @@
         overflow: hidden;
         border-radius: 24px;
         display: flex;
-        /* MODIFICATION : alignement du texte au tiers inférieur (66% du haut environ) */
         align-items: flex-start;
-        padding: 66% 26px 26px 26px;
+        padding: 66% 26px 26px 26px; /* Texte au tiers inférieur */
         color: white;
         background-position: center;
         background-size: cover;
@@ -485,7 +521,6 @@
         content: "";
         position: absolute;
         inset: 0;
-        /* Dégradé légèrement ajusté pour bien couvrir le tiers inférieur */
         background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.4) 40%, transparent 100%);
         transition: opacity 0.3s ease;
       }
@@ -687,11 +722,11 @@
 
       /* MEDIA QUERIES */
       @media (max-width: 1100px) {
-        .shows-grid, .promise-grid, .about-grid, .split-slide, .teaser-grid {
+        .shows-grid, .promise-grid, .about-grid, .teaser-grid {
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
-        .teaser-tile { min-height: 210px; padding-top: 60%; } /* Ajustement mobile pour la tuile teaser */
+        .teaser-tile { min-height: 210px; padding-top: 60%; } 
       }
 
       @media (max-width: 768px) {
@@ -708,7 +743,14 @@
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
-        .carousel-3d-scene, .slide-3d > img, .overlay-slide, .split-slide, .text-slide { height: 400px; min-height: 400px; }
+        .carousel-3d-scene, .slide-3d > img, .overlay-slide, .text-slide { height: 400px; min-height: 400px; }
+        
+        /* Ajustements d'illustration pour Mobile */
+        .split-slide { flex-direction: column; gap: 0; }
+        .split-slide .slide-image { width: auto; max-width: 70%; height: 35%; margin: 20px auto 0; box-shadow: none; }
+        .split-slide .copy { padding: 10px 20px 20px; }
+        .split-slide h4 { font-size: 20px; }
+        .split-slide p { font-size: 16px; line-height: 1.5; margin-top: 8px; }
         
         .carousel-btn { width: 48px; height: 48px; font-size: 28px; }
         .carousel-btn.prev { left: 5px; }
@@ -740,7 +782,6 @@
       <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
 
       <div class="hero-actions">
-        <!-- Boutons avec style mis à jour (coins très légèrement arrondis) -->
         <a class="button button-primary" href="#contact">accueillir</a>
         <a class="button button-secondary" href="#spectacles">découvrir</a>
       </div>
@@ -748,7 +789,7 @@
 
     <main>
       <section id="invitation">
-        <div class="container card promise-grid">
+        <div class="container card promise-grid reveal">
           <div class="promise-image">
             <img src="assets/promesse.jpg" alt="Un moment à vivre ensemble" />
           </div>
@@ -767,10 +808,9 @@
               <p>On est touché. On s’y reconnaît. On en parle après.</p>
             </div>
 
-            <div class="soft-box">
+            <div class="soft-box reveal">
               <h3>Concrètement</h3>
 
-              <!-- MODIFICATION : Textes mis à jour -->
               <div class="stack" style="margin-top: 18px">
                 <div class="bullet">
                   <span>🎭</span>
@@ -796,16 +836,15 @@
 
       <section id="spectacles">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <div class="eyebrow">Les spectacles</div>
-            <!-- MODIFICATION : Texte mis à jour -->
             <h2>Deux solos pour rire et échanger</h2>
           </div>
 
           <div class="shows-grid">
             
             <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
-            <article class="card carousel" data-carousel-3d>
+            <article class="card carousel reveal" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
               </div>
@@ -827,7 +866,6 @@
                       <div class="copy">
                         <div>
                           <h4>Les Braderies de la Terre</h4>
-                          <!-- MODIFICATION : Texte mis à jour -->
                           <p>Un cabaret écologiste entre rire, poésie, chansons, et interactions.</p>
                           <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
                         </div>
@@ -868,7 +906,7 @@
             </article>
 
             <!-- CUBE 2 : BRAHMS (3 FACES) -->
-            <article class="card carousel" data-carousel-3d>
+            <article class="card carousel reveal" data-carousel-3d style="transition-delay: 0.1s;">
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
               </div>
@@ -884,7 +922,6 @@
                     <img src="assets/brahms-affiche.jpg" alt="Affiche" />
                   </div>
                   
-                  <!-- MODIFICATION : Utilisation de split-slide pour avoir une image à gauche -->
                   <div class="slide-3d">
                     <div class="split-slide">
                       <img class="slide-image" src="assets/brahms-visuel.jpg" alt="Visuel Brahms" />
@@ -926,7 +963,7 @@
       </section>
 
       <section id="ambiance">
-        <div class="container">
+        <div class="container reveal">
           <div class="section-head">
             <div class="eyebrow">Ambiance</div>
             <h2>Se relier par l'art</h2>
@@ -943,7 +980,7 @@
       </section>
 
       <section id="apropos">
-        <div class="container about-grid">
+        <div class="container about-grid reveal">
           <div class="about-image">
             <img src="assets/portrait.jpg" alt="Serge Mascaro" />
           </div>
@@ -958,7 +995,7 @@
         </div>
       </section>
 
-      <section id="contact" class="contact-section-wrapper">
+      <section id="contact" class="contact-section-wrapper reveal">
         <div class="container contact-wrap">
           <div class="contact-grid">
             <div class="contact-copy">
@@ -986,7 +1023,23 @@
     </main>
 
     <script>
-      // === GESTION DES CUBES 3D ===
+      // === ANIMATIONS AU DEFILEMENT (REVEAL) ===
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Ne l'anime qu'une seule fois
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Déclenche quand 15% de l'élément est visible
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // === GESTION DES CUBES 3D TACTILES ===
       document.querySelectorAll("[data-carousel-3d]").forEach((carousel) => {
         const scene = carousel.querySelector(".carousel-3d-scene");
         const rig = carousel.querySelector(".carousel-3d-rig");
@@ -995,58 +1048,53 @@
         const prev = carousel.querySelector("[data-prev]");
         const next = carousel.querySelector("[data-next]");
         
-        // Configuration de la géométrie
         const numFaces = parseInt(scene.dataset.faces, 10);
         const angle = 360 / numFaces;
         let currentIndex = 0;
         let currentRotation = 0;
 
+        // Met à jour l'affichage
         function updateDisplay() {
-          // Gère la classe "active" sur les petits points (modulo sécurisé)
           const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
           dots.forEach((d, i) => d.classList.toggle("active", i === normalizedIndex));
-          
-          // Tourne le bloc central dans l'espace 3D
           rig.style.transform = `translateZ(calc(var(--tz) * -1)) rotateY(${-currentRotation}deg)`;
         }
 
-        // Observeur de redimensionnement : Recalcule la taille du cube si l'écran change de taille
+        // Recalcule la taille 3D au redimensionnement
         const ro = new ResizeObserver(entries => {
           for (let entry of entries) {
             const width = entry.contentRect.width;
-            // Mathématiques pour la distance du centre (Apothème)
             const tz = (width / 2) / Math.tan(Math.PI / numFaces);
             scene.style.setProperty('--tz', `${tz}px`);
             
-            // Applique la bonne orientation et profondeur à chaque face
             slides.forEach((slide, i) => {
               slide.style.transform = `rotateY(${i * angle}deg) translateZ(var(--tz))`;
             });
-            
             updateDisplay();
           }
         });
         ro.observe(scene);
 
-        // Écouteurs de clics (Grosses flèches sur les côtés)
-        prev.onclick = () => {
+        // Actions des flèches
+        function goPrev() {
           currentIndex--;
           currentRotation -= angle;
           updateDisplay();
-        };
-        
-        next.onclick = () => {
+        }
+        function goNext() {
           currentIndex++;
           currentRotation += angle;
           updateDisplay();
-        };
+        }
+
+        prev.onclick = goPrev;
+        next.onclick = goNext;
         
-        // Écouteurs de clics (Points du bas)
+        // Clics sur les points
         dots.forEach((d, i) => {
           d.onclick = () => {
             const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
             let diff = i - normalizedIndex;
-            // Optimisation : Prendre le chemin de rotation le plus court
             if (Math.abs(diff) > numFaces / 2) {
               diff = diff > 0 ? diff - numFaces : diff + numFaces;
             }
@@ -1055,9 +1103,48 @@
             updateDisplay();
           };
         });
+
+        // --- GESTION DU TACTILE (SWIPE & DRAG) ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isDragging = false;
+
+        // Pour mobiles
+        scene.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        scene.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, {passive: true});
+
+        // Pour ordinateurs (Souris)
+        scene.addEventListener('mousedown', e => {
+          touchStartX = e.screenX;
+          isDragging = true;
+        });
+
+        window.addEventListener('mouseup', e => {
+          if(isDragging) {
+             touchEndX = e.screenX;
+             isDragging = false;
+             handleSwipe();
+          }
+        });
+
+        function handleSwipe() {
+           const threshold = 60; // Seuil en pixels pour valider un glissement
+           if (touchEndX < touchStartX - threshold) {
+              goNext(); // Glissement vers la gauche = Face suivante
+           }
+           if (touchEndX > touchStartX + threshold) {
+              goPrev(); // Glissement vers la droite = Face précédente
+           }
+        }
       });
 
-      // Diaporama Ambiance
+      // === DIAPORAMA AMBIANCE ===
       const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
       let ambientIndex = 0;
       setInterval(() => {
@@ -1072,4 +1159,5 @@
 
 
 ```
+
 
