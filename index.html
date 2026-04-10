@@ -145,7 +145,7 @@
 
       .nav a {
         position: relative;
-        font-size: 22px; /* Police agrandie pour le menu */
+        font-size: 22px; 
         font-weight: 600;
         color: #564d44;
         transition: color 0.25s ease;
@@ -357,7 +357,7 @@
       .carousel-head {
         display: flex;
         align-items: flex-start;
-        justify-content: center; /* Centré car les flèches sont maintenant sur le cube */
+        justify-content: center; 
         padding: 24px 24px 20px;
         border-bottom: 1px solid rgba(47, 42, 36, 0.08);
       }
@@ -377,7 +377,6 @@
         z-index: 2;
       }
 
-      /* Gros boutons de navigation superposés au cube */
       .carousel-btn {
         position: absolute;
         top: 50%;
@@ -397,7 +396,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         transition: all 0.2s ease;
         user-select: none;
-        padding-bottom: 4px; /* Centrage optique du chevron */
+        padding-bottom: 4px;
       }
 
       .carousel-btn:hover {
@@ -606,68 +605,92 @@
         min-height: 560px;
       }
 
+      /* --- SECTION CONTACT & FOOTER DUNE --- */
+      .contact-section-wrapper {
+        position: relative;
+        /* Ajout d'un fond avec un SVG de végétation pour simuler l'ambiance "dune" de la maquette */
+        background-color: #f7f4ea; 
+        background-image: 
+          radial-gradient(circle at 50% 0%, rgba(243, 236, 222, 1) 0%, rgba(247, 244, 234, 0) 60%),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><g fill="rgba(120, 140, 120, 0.08)" transform="scale(0.8)"><path d="M50 150 Q40 100 20 80 Q35 110 50 150 Z"/><path d="M50 150 Q60 90 80 70 Q65 110 50 150 Z"/><path d="M50 150 Q55 80 50 50 Q45 80 50 150 Z"/></g><g fill="rgba(150, 160, 130, 0.06)" transform="translate(100, 50) scale(0.5)"><path d="M50 150 Q40 100 20 80 Q35 110 50 150 Z"/><path d="M50 150 Q60 90 80 70 Q65 110 50 150 Z"/><path d="M50 150 Q55 80 50 50 Q45 80 50 150 Z"/></g></svg>');
+        background-position: center;
+        border-top: 1px solid rgba(194, 168, 120, 0.2);
+      }
+
+      /* Pour recréer l'aspect épuré, on enlève le style "carte" habituel de la zone de contact */
       .contact-wrap {
-        padding: 42px;
+        padding: 80px 20px 60px;
+        text-align: center;
       }
 
       .contact-grid {
-        grid-template-columns: 0.94fr 1.06fr;
+        display: block; /* On repasse en block pour centrer le contenu comme sur la maquette */
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .contact-copy {
+        margin-bottom: 40px;
+      }
+      
+      .contact-copy h2 {
+        font-size: clamp(40px, 5vw, 64px);
+        margin-bottom: 24px;
+        color: #2c352b; /* Texte légèrement plus foncé/vert */
+      }
+      
+      .contact-copy p {
+        font-size: 24px;
+        color: #5b6659;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+
+      /* Icône enveloppe en haut */
+      .contact-icon {
+        font-size: 32px;
+        margin-bottom: 20px;
       }
 
       .contact-form {
-        display: grid;
-        gap: 14px;
-      }
-
-      .field, .textarea {
-        width: 100%;
-        border: 1px solid #e3dbcf;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.95);
-        color: var(--text);
-        font: inherit;
-        padding: 16px;
-      }
-
-      .textarea {
-        min-height: 170px;
-        resize: vertical;
-      }
-
-      .contact-cta {
-        min-height: 70px;
-        font-size: 26px; /* Police beaucoup plus grande */
-        font-weight: 700;
-        background: var(--green);
-        color: white;
-        box-shadow: 0 16px 34px rgba(47, 111, 94, 0.22);
-        border-radius: 999px;
-        text-transform: none; 
         display: flex;
-        align-items: center;
         justify-content: center;
+      }
+
+      /* Bouton contact au style de la maquette */
+      .contact-cta {
+        display: inline-block;
+        min-height: auto;
+        padding: 16px 48px;
+        font-size: 22px; 
+        font-weight: 600;
+        background: #395c4b; /* Vert foncé de la maquette */
+        color: white;
+        border-radius: 12px; /* Coins un peu moins arrondis que pilule */
+        text-transform: none; 
         text-decoration: none;
         transition: background 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 8px 24px rgba(57, 92, 75, 0.2);
+        margin-top: 20px;
       }
 
       .contact-cta:hover {
-        background: #295f51;
+        background: #2a4738;
         transform: translateY(-2px);
       }
 
-      .footer {
-        padding: 30px 0;
-        border-top: 1px solid rgba(80, 68, 53, 0.12);
-      }
-
-      .footer-inner {
-        color: var(--muted-soft);
-        font-size: 15px;
+      /* Footer intégré à la section dune */
+      .footer-dune {
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid rgba(194, 168, 120, 0.3);
+        color: #7b8579;
+        font-size: 16px;
       }
 
       /* MEDIA QUERIES */
       @media (max-width: 1100px) {
-        .shows-grid, .promise-grid, .about-grid, .contact-grid, .split-slide, .teaser-grid {
+        .shows-grid, .promise-grid, .about-grid, .split-slide, .teaser-grid {
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
@@ -683,20 +706,20 @@
           align-items: flex-start;
         }
         .nav { gap: 14px 18px; }
-        .nav a { font-size: 18px; } /* Ajustement mobile */
+        .nav a { font-size: 18px; }
 
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
         .carousel-3d-scene, .slide-3d > img, .overlay-slide, .split-slide, .text-slide { height: 400px; min-height: 400px; }
         
-        /* Boutons 360 ajustés pour mobile */
         .carousel-btn { width: 48px; height: 48px; font-size: 28px; }
         .carousel-btn.prev { left: 5px; }
         .carousel-btn.next { right: 5px; }
 
         .ambient-stage { height: 430px; }
-        .contact-cta { font-size: 22px; min-height: 60px; }
+        .contact-cta { font-size: 20px; padding: 14px 36px; }
+        .contact-wrap { padding: 60px 20px 40px; }
       }
     </style>
   </head>
@@ -789,18 +812,15 @@
 
               <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="4">
-                <!-- Boutons interactifs positionnés sur les côtés -->
                 <button class="carousel-btn prev" type="button" data-prev>‹</button>
                 <button class="carousel-btn next" type="button" data-next>›</button>
 
                 <div class="carousel-3d-rig">
                   
-                  <!-- Face 1 : Titre / Affiche -->
                   <div class="slide-3d">
                     <img src="assets/braderies-affiche.jpg" alt="Affiche Les braderies de la Terre" />
                   </div>
                   
-                  <!-- Face 2 : Résumé et Fiche Technique -->
                   <div class="slide-3d">
                     <div class="split-slide">
                       <img class="slide-image" src="assets/braderies-visuel.jpg" alt="Visuel" />
@@ -814,7 +834,6 @@
                     </div>
                   </div>
                   
-                  <!-- Face 3 : Bande-annonce & Dossier (Disposition comme Brahms) -->
                   <div class="slide-3d">
                     <div class="teaser-grid">
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')">
@@ -826,7 +845,6 @@
                     </div>
                   </div>
                   
-                  <!-- Face 4 : Expo (reste seule sur sa face) -->
                   <div class="slide-3d">
                     <div class="overlay-slide">
                       <img src="assets/braderies-expo.jpg" alt="Expo" style="width:100%; height:100%; object-fit:cover;" />
@@ -856,18 +874,15 @@
 
               <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="3">
-                <!-- Boutons interactifs positionnés sur les côtés -->
                 <button class="carousel-btn prev" type="button" data-prev>‹</button>
                 <button class="carousel-btn next" type="button" data-next>›</button>
 
                 <div class="carousel-3d-rig">
                   
-                  <!-- Face 1 : Titre / Affiche -->
                   <div class="slide-3d">
                     <img src="assets/brahms-affiche.jpg" alt="Affiche" />
                   </div>
                   
-                  <!-- Face 2 : Résumé -->
                   <div class="slide-3d">
                     <div class="text-slide">
                       <div class="text-slide-inner">
@@ -879,7 +894,6 @@
                     </div>
                   </div>
                   
-                  <!-- Face 3 : Bande-annonce et Dossier -->
                   <div class="slide-3d">
                     <div class="teaser-grid">
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7" style="background-image:url('assets/mini_teaser_brahms.jpg')">
@@ -939,35 +953,34 @@
         </div>
       </section>
 
-      <section id="contact">
-        <div class="container card contact-wrap">
+      <!-- NOUVELLE SECTION CONTACT AMBIANCE DUNE -->
+      <section id="contact" class="contact-section-wrapper">
+        <div class="container contact-wrap">
           <div class="contact-grid">
             <div class="contact-copy">
-              <div class="eyebrow">Contact</div>
+              <div class="contact-icon">💌</div>
               <h2>Et si on en parlait ?</h2>
-              <p>Vous avez un lieu, une envie, une intuition ? Je serais heureux d'échanger avec vous.</p>
+              <p>Vous avez un lieu, une envie, une intuition ?</p>
+              <p>Je serais heureux d'échanger avec vous.</p>
             </div>
 
-            <form class="contact-form">
-              <input class="field" type="text" id="nom" placeholder="Votre nom" />
-              <input class="field" type="text" id="lieu" placeholder="Nom du lieu" />
-              <textarea class="textarea" id="message" placeholder="Parlez-moi de votre lieu, de votre envie ou de votre intuition..."></textarea>
-              
-              <a class="button contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
-                me contacter
-                <span aria-hidden="true" style="margin-left:14px">→</span>
+            <div class="contact-form">
+              <!-- Le bouton reprend exactement le texte et le style de la maquette -->
+              <a class="contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
+                Me contacter
               </a>
-            </form>
+            </div>
           </div>
         </div>
+        
+        <footer class="footer-dune">
+          <div class="container">
+            <span>© 2026 Serge Mascaro — Chroniques d'une humanité en devenir</span>
+          </div>
+        </footer>
       </section>
+      
     </main>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <span>Une invitation au dialogue, au cœur des lieux vivants.</span>
-      </div>
-    </footer>
 
     <script>
       // === GESTION DES CUBES 3D ===
@@ -1050,18 +1063,6 @@
         ambientImages[ambientIndex].classList.add("active");
       }, 3500);
 
-      // Générateur Mailto
-      const nom = document.getElementById("nom");
-      const lieu = document.getElementById("lieu");
-      const message = document.getElementById("message");
-      const mailtoLink = document.getElementById("mailto-link");
-
-      function updateMailto() {
-        const subject = encodeURIComponent(`Accueil d'un spectacle — ${lieu.value || "Prise de contact"}`);
-        const body = encodeURIComponent(`Bonjour,\n\nJe vous contacte au sujet d'un spectacle.\n\nNom : ${nom.value}\nLieu : ${lieu.value}\n\nMessage :\n${message.value}`);
-        mailtoLink.href = `mailto:serge.mascaro@gmail.com?subject=${subject}&body=${body}`;
-      }
-      [nom, lieu, message].forEach(f => f.addEventListener("input", updateMailto));
     </script>
   </body>
 </html>
