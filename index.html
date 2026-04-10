@@ -182,57 +182,75 @@
         transform: scaleX(1);
       }
 
+      /* === HERO & PARALLAX === */
       .hero {
         position: relative;
         width: 100%;
+        height: 65vh; /* Hauteur fixe pour le parallax */
+        min-height: 450px;
         overflow: hidden;
-        background: transparent;
+        background: var(--sand-deep);
         margin: 0;
         padding: 0;
-        line-height: 0;
       }
 
       .hero-media {
-        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        margin: 0;
+        height: 120%; /* Plus grand pour permettre le mouvement */
+        object-fit: cover;
+        object-position: center 30%;
+        will-change: transform; /* Optimisation navigateur */
+        z-index: 1;
       }
 
       .hero-actions {
         position: absolute;
         left: 56px;
-        bottom: 18px;
+        bottom: 30px;
         z-index: 5;
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
         line-height: normal;
       }
 
+      /* === MICRO-INTERACTIONS BOUTONS === */
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         min-height: auto;
-        padding: 4pt 10pt;
-        border-radius: 8px; /* Coins arrondis */
+        padding: 6pt 14pt;
+        border-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.95);
         font-family: var(--font-sans);
         font-size: 16px;
         font-weight: 600;
         letter-spacing: 0.01em;
         cursor: pointer;
-        transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+        will-change: transform;
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, background 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       }
 
       .button:hover {
-        transform: translateY(-1px);
+        /* Effet loupe/magnétique très agréable */
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      }
+      
+      .button:active {
+        /* Effet d'enfoncement au clic */
+        transform: translateY(1px) scale(0.98);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       }
 
       .button-primary,
       .button-secondary {
-        background: rgba(255, 251, 245, 0.9);
+        background: rgba(255, 251, 245, 0.95);
         color: var(--text);
       }
 
@@ -385,7 +403,7 @@
         perspective: 1800px;
         background: rgba(255, 252, 246, 0.35);
         z-index: 2;
-        cursor: grab; /* Indique que l'élément est glissable */
+        cursor: grab;
       }
 
       .carousel-3d-scene:active {
@@ -420,13 +438,8 @@
         transform: translateY(-50%) scale(1.1);
       }
 
-      .carousel-btn.prev {
-        left: 15px;
-      }
-
-      .carousel-btn.next {
-        right: 15px;
-      }
+      .carousel-btn.prev { left: 15px; }
+      .carousel-btn.next { right: 15px; }
 
       .carousel-3d-rig {
         width: 100%;
@@ -434,7 +447,7 @@
         position: absolute;
         transform-style: preserve-3d;
         transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        pointer-events: none; /* Empêche les images de bloquer le drag */
+        pointer-events: none; 
       }
       
       .slide-3d {
@@ -446,7 +459,7 @@
         overflow: hidden;
         backface-visibility: hidden;
         box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
-        pointer-events: auto; /* Réactive le pointer pour le contenu */
+        pointer-events: auto; 
       }
 
       .slide-3d > img {
@@ -464,13 +477,12 @@
       }
 
       .split-slide .slide-image {
-        width: 38%;
-        height: auto;
-        max-height: 85%;
-        object-fit: contain; /* S'ajuste en hauteur sans déborder ni recadrer */
+        width: 38%; /* Prend 38% de la largeur du cube */
+        height: 85%; /* Prend 85% de la hauteur du cube */
+        object-fit: cover; /* FORCE l'image à remplir l'intégralité du sous-cadre, retirant toute bande blanche */
         border-radius: 12px;
         margin-left: 38px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12); /* Ajoute du relief */
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
       }
 
       .split-slide .copy {
@@ -510,7 +522,7 @@
         border-radius: 24px;
         display: flex;
         align-items: flex-start;
-        padding: 66% 26px 26px 26px; /* Texte au tiers inférieur */
+        padding: 66% 26px 26px 26px; 
         color: white;
         background-position: center;
         background-size: cover;
@@ -691,6 +703,7 @@
         justify-content: center;
       }
 
+      /* Micro-interactions CTA Contact */
       .contact-cta {
         display: inline-block;
         min-height: auto;
@@ -702,14 +715,21 @@
         border-radius: 12px; 
         text-transform: none; 
         text-decoration: none;
-        transition: background 0.2s ease, transform 0.2s ease;
+        will-change: transform;
+        transition: background 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
         box-shadow: 0 8px 24px rgba(57, 92, 75, 0.2);
         margin-top: 20px;
       }
 
       .contact-cta:hover {
         background: #2a4738;
-        transform: translateY(-2px);
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 16px 32px rgba(57, 92, 75, 0.3);
+      }
+      
+      .contact-cta:active {
+        transform: translateY(0) scale(0.98);
+        box-shadow: 0 4px 12px rgba(57, 92, 75, 0.2);
       }
 
       .footer-dune {
@@ -740,14 +760,23 @@
         .nav { gap: 14px 18px; }
         .nav a { font-size: 18px; }
 
+        .hero { height: 50vh; }
+        .hero-actions { left: 24px; bottom: 20px; }
+
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
         .carousel-3d-scene, .slide-3d > img, .overlay-slide, .text-slide { height: 400px; min-height: 400px; }
         
-        /* Ajustements d'illustration pour Mobile */
+        /* Ajustements d'illustration pour Mobile avec object-fit cover */
         .split-slide { flex-direction: column; gap: 0; }
-        .split-slide .slide-image { width: auto; max-width: 70%; height: 35%; margin: 20px auto 0; box-shadow: none; }
+        .split-slide .slide-image { 
+           width: 80%; 
+           height: 40%; 
+           margin: 20px auto 0; 
+           object-fit: cover; 
+           box-shadow: 0 6px 16px rgba(0,0,0,0.1); 
+        }
         .split-slide .copy { padding: 10px 20px 20px; }
         .split-slide h4 { font-size: 20px; }
         .split-slide p { font-size: 16px; line-height: 1.5; margin-top: 8px; }
@@ -1023,18 +1052,27 @@
     </main>
 
     <script>
+      // === PARALLAX HERO BANDEAU ===
+      const heroImg = document.querySelector('.hero-media');
+      window.addEventListener('scroll', () => {
+         if (window.scrollY <= window.innerHeight) {
+            // Fait descendre l'image doucement quand on scrolle, créant l'effet de profondeur
+            heroImg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+         }
+      }, { passive: true });
+
       // === ANIMATIONS AU DEFILEMENT (REVEAL) ===
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // Ne l'anime qu'une seule fois
+            observer.unobserve(entry.target); 
           }
         });
       }, {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15 // Déclenche quand 15% de l'élément est visible
+        threshold: 0.15 
       });
 
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
@@ -1053,14 +1091,12 @@
         let currentIndex = 0;
         let currentRotation = 0;
 
-        // Met à jour l'affichage
         function updateDisplay() {
           const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
           dots.forEach((d, i) => d.classList.toggle("active", i === normalizedIndex));
           rig.style.transform = `translateZ(calc(var(--tz) * -1)) rotateY(${-currentRotation}deg)`;
         }
 
-        // Recalcule la taille 3D au redimensionnement
         const ro = new ResizeObserver(entries => {
           for (let entry of entries) {
             const width = entry.contentRect.width;
@@ -1075,7 +1111,6 @@
         });
         ro.observe(scene);
 
-        // Actions des flèches
         function goPrev() {
           currentIndex--;
           currentRotation -= angle;
@@ -1090,7 +1125,6 @@
         prev.onclick = goPrev;
         next.onclick = goNext;
         
-        // Clics sur les points
         dots.forEach((d, i) => {
           d.onclick = () => {
             const normalizedIndex = ((currentIndex % numFaces) + numFaces) % numFaces;
@@ -1109,7 +1143,7 @@
         let touchEndX = 0;
         let isDragging = false;
 
-        // Pour mobiles
+        // Mobiles
         scene.addEventListener('touchstart', e => {
           touchStartX = e.changedTouches[0].screenX;
         }, {passive: true});
@@ -1119,7 +1153,7 @@
           handleSwipe();
         }, {passive: true});
 
-        // Pour ordinateurs (Souris)
+        // Souris (PC)
         scene.addEventListener('mousedown', e => {
           touchStartX = e.screenX;
           isDragging = true;
@@ -1134,12 +1168,12 @@
         });
 
         function handleSwipe() {
-           const threshold = 60; // Seuil en pixels pour valider un glissement
+           const threshold = 60; // Sensibilité du glissement
            if (touchEndX < touchStartX - threshold) {
-              goNext(); // Glissement vers la gauche = Face suivante
+              goNext();
            }
            if (touchEndX > touchStartX + threshold) {
-              goPrev(); // Glissement vers la droite = Face précédente
+              goPrev();
            }
         }
       });
@@ -1159,5 +1193,3 @@
 
 
 ```
-
-
