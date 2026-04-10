@@ -205,7 +205,7 @@
         justify-content: center;
         min-height: auto;
         padding: 4pt 10pt;
-        border-radius: 0;
+        border-radius: 8px; /* MODIFICATION : coins très légèrement arrondis */
         border: 1px solid rgba(255, 255, 255, 0.95);
         font-family: var(--font-sans);
         font-size: 16px;
@@ -448,6 +448,7 @@
       .split-slide .copy,
       .text-slide-inner {
         padding: 38px;
+        flex: 1; /* Permet à la copie de prendre l'espace restant */
       }
 
       .text-slide-inner p,
@@ -471,8 +472,9 @@
         overflow: hidden;
         border-radius: 24px;
         display: flex;
-        align-items: flex-end;
-        padding: 26px;
+        /* MODIFICATION : alignement du texte au tiers inférieur (66% du haut environ) */
+        align-items: flex-start;
+        padding: 66% 26px 26px 26px;
         color: white;
         background-position: center;
         background-size: cover;
@@ -483,12 +485,13 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(10, 10, 10, 0.7), transparent);
+        /* Dégradé légèrement ajusté pour bien couvrir le tiers inférieur */
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.4) 40%, transparent 100%);
         transition: opacity 0.3s ease;
       }
 
       .teaser-tile:hover::before {
-        opacity: 0.9;
+        opacity: 0.95;
       }
 
       .teaser-tile span {
@@ -607,7 +610,6 @@
       /* --- SECTION CONTACT & FOOTER DUNE --- */
       .contact-section-wrapper {
         position: relative;
-        /* Ajout d'un fond avec un SVG de végétation pour simuler l'ambiance "dune" de la maquette */
         background-color: #f7f4ea; 
         background-image: 
           radial-gradient(circle at 50% 0%, rgba(243, 236, 222, 1) 0%, rgba(247, 244, 234, 0) 60%),
@@ -616,14 +618,13 @@
         border-top: 1px solid rgba(194, 168, 120, 0.2);
       }
 
-      /* Pour recréer l'aspect épuré, on enlève le style "carte" habituel de la zone de contact */
       .contact-wrap {
         padding: 80px 20px 60px;
         text-align: center;
       }
 
       .contact-grid {
-        display: block; /* On repasse en block pour centrer le contenu comme sur la maquette */
+        display: block; 
         max-width: 600px;
         margin: 0 auto;
       }
@@ -635,7 +636,7 @@
       .contact-copy h2 {
         font-size: clamp(40px, 5vw, 64px);
         margin-bottom: 24px;
-        color: #2c352b; /* Texte légèrement plus foncé/vert */
+        color: #2c352b; 
       }
       
       .contact-copy p {
@@ -645,7 +646,6 @@
         margin-bottom: 10px;
       }
 
-      /* Icône enveloppe en haut */
       .contact-icon {
         font-size: 32px;
         margin-bottom: 20px;
@@ -656,16 +656,15 @@
         justify-content: center;
       }
 
-      /* Bouton contact au style de la maquette */
       .contact-cta {
         display: inline-block;
         min-height: auto;
         padding: 16px 48px;
-        font-size: 22px; 
+        font-size: 26px; 
         font-weight: 600;
-        background: #395c4b; /* Vert foncé de la maquette */
+        background: #395c4b; 
         color: white;
-        border-radius: 12px; /* Coins un peu moins arrondis que pilule */
+        border-radius: 12px; 
         text-transform: none; 
         text-decoration: none;
         transition: background 0.2s ease, transform 0.2s ease;
@@ -678,7 +677,6 @@
         transform: translateY(-2px);
       }
 
-      /* Footer intégré à la section dune */
       .footer-dune {
         padding: 40px 0;
         text-align: center;
@@ -693,7 +691,7 @@
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
-        .teaser-tile { min-height: 210px; }
+        .teaser-tile { min-height: 210px; padding-top: 60%; } /* Ajustement mobile pour la tuile teaser */
       }
 
       @media (max-width: 768px) {
@@ -717,7 +715,7 @@
         .carousel-btn.next { right: 5px; }
 
         .ambient-stage { height: 430px; }
-        .contact-cta { font-size: 20px; padding: 14px 36px; }
+        .contact-cta { font-size: 22px; padding: 14px 36px; }
         .contact-wrap { padding: 60px 20px 40px; }
       }
     </style>
@@ -742,6 +740,7 @@
       <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
 
       <div class="hero-actions">
+        <!-- Boutons avec style mis à jour (coins très légèrement arrondis) -->
         <a class="button button-primary" href="#contact">accueillir</a>
         <a class="button button-secondary" href="#spectacles">découvrir</a>
       </div>
@@ -771,10 +770,11 @@
             <div class="soft-box">
               <h3>Concrètement</h3>
 
+              <!-- MODIFICATION : Textes mis à jour -->
               <div class="stack" style="margin-top: 18px">
                 <div class="bullet">
                   <span>🎭</span>
-                  <span>Des solos incarnés, facétieux, accessibles</span>
+                  <span>Des solos facétieux et accessibles</span>
                 </div>
                 <div class="bullet">
                   <span>🤝</span>
@@ -786,7 +786,7 @@
                 </div>
                 <div class="bullet">
                   <span>🪶</span>
-                  <span>Pas besoin de scène. Une installation proche du public</span>
+                  <span>Une installation tous terrains qui intègre la configuration du lieu</span>
                 </div>
               </div>
             </div>
@@ -798,6 +798,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Les spectacles</div>
+            <!-- MODIFICATION : Texte mis à jour -->
             <h2>Deux solos pour rire et échanger</h2>
           </div>
 
@@ -826,7 +827,8 @@
                       <div class="copy">
                         <div>
                           <h4>Les Braderies de la Terre</h4>
-                          <p>Un cabaret écologiste entre rire, poésie, chansons, et réflexion collective.</p>
+                          <!-- MODIFICATION : Texte mis à jour -->
+                          <p>Un cabaret écologiste entre rire, poésie, chansons, et interactions.</p>
                           <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
                         </div>
                       </div>
@@ -882,13 +884,17 @@
                     <img src="assets/brahms-affiche.jpg" alt="Affiche" />
                   </div>
                   
+                  <!-- MODIFICATION : Utilisation de split-slide pour avoir une image à gauche -->
                   <div class="slide-3d">
-                    <div class="text-slide">
-                      <div class="text-slide-inner">
-                        <h4>J'irai chanter du Brahms dans un supermarché</h4>
-                        <p>La journée déroutante d'un manager en crise.</p>
-                        <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
-                        <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                    <div class="split-slide">
+                      <img class="slide-image" src="assets/brahms-visuel.jpg" alt="Visuel Brahms" />
+                      <div class="copy">
+                        <div>
+                          <h4>J'irai chanter du Brahms dans un supermarché</h4>
+                          <p>La journée déroutante d'un manager en crise.</p>
+                          <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
+                          <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -952,7 +958,6 @@
         </div>
       </section>
 
-      <!-- NOUVELLE SECTION CONTACT AMBIANCE DUNE -->
       <section id="contact" class="contact-section-wrapper">
         <div class="container contact-wrap">
           <div class="contact-grid">
@@ -964,7 +969,6 @@
             </div>
 
             <div class="contact-form">
-              <!-- Le bouton reprend exactement le texte et le style de la maquette -->
               <a class="contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
                 Me contacter
               </a>
@@ -1068,3 +1072,4 @@
 
 
 ```
+
