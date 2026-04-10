@@ -182,34 +182,29 @@
         transform: scaleX(1);
       }
 
-      /* === HERO & PARALLAX === */
+      /* === HERO (AJUSTEMENT LARGEUR EXACTE) === */
       .hero {
         position: relative;
         width: 100%;
-        height: 65vh; /* Hauteur fixe pour le parallax */
-        min-height: 450px;
-        overflow: hidden;
-        background: var(--sand-deep);
+        background: transparent;
         margin: 0;
         padding: 0;
+        line-height: 0;
+        display: flex;
       }
 
       .hero-media {
-        position: absolute;
-        top: 0;
-        left: 0;
+        display: block;
         width: 100%;
-        height: 120%; /* Plus grand pour permettre le mouvement */
-        object-fit: cover;
-        object-position: center 30%;
-        will-change: transform; /* Optimisation navigateur */
+        height: auto; /* Conserve le ratio natif de l'image */
+        margin: 0;
         z-index: 1;
       }
 
       .hero-actions {
         position: absolute;
         left: 56px;
-        bottom: 30px;
+        bottom: 24px; /* Remonté un peu selon la taille du bandeau */
         z-index: 5;
         display: flex;
         gap: 12px;
@@ -237,13 +232,11 @@
       }
 
       .button:hover {
-        /* Effet loupe/magnétique très agréable */
         transform: translateY(-3px) scale(1.02);
         box-shadow: 0 10px 24px rgba(0,0,0,0.12);
       }
       
       .button:active {
-        /* Effet d'enfoncement au clic */
         transform: translateY(1px) scale(0.98);
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       }
@@ -477,9 +470,9 @@
       }
 
       .split-slide .slide-image {
-        width: 38%; /* Prend 38% de la largeur du cube */
-        height: 85%; /* Prend 85% de la hauteur du cube */
-        object-fit: cover; /* FORCE l'image à remplir l'intégralité du sous-cadre, retirant toute bande blanche */
+        width: 38%; 
+        height: 85%; 
+        object-fit: cover; 
         border-radius: 12px;
         margin-left: 38px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -703,7 +696,6 @@
         justify-content: center;
       }
 
-      /* Micro-interactions CTA Contact */
       .contact-cta {
         display: inline-block;
         min-height: auto;
@@ -760,15 +752,22 @@
         .nav { gap: 14px 18px; }
         .nav a { font-size: 18px; }
 
-        .hero { height: 50vh; }
-        .hero-actions { left: 24px; bottom: 20px; }
+        /* Ajustement Mobile pour que les boutons restent visibles si le bandeau est très court */
+        .hero-actions { 
+           left: 20px; 
+           bottom: 12px; 
+           gap: 8px; 
+        }
+        .hero-actions .button {
+           padding: 4pt 8pt;
+           font-size: 14px;
+        }
 
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
         .carousel-3d-scene, .slide-3d > img, .overlay-slide, .text-slide { height: 400px; min-height: 400px; }
         
-        /* Ajustements d'illustration pour Mobile avec object-fit cover */
         .split-slide { flex-direction: column; gap: 0; }
         .split-slide .slide-image { 
            width: 80%; 
@@ -1052,15 +1051,6 @@
     </main>
 
     <script>
-      // === PARALLAX HERO BANDEAU ===
-      const heroImg = document.querySelector('.hero-media');
-      window.addEventListener('scroll', () => {
-         if (window.scrollY <= window.innerHeight) {
-            // Fait descendre l'image doucement quand on scrolle, créant l'effet de profondeur
-            heroImg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-         }
-      }, { passive: true });
-
       // === ANIMATIONS AU DEFILEMENT (REVEAL) ===
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
