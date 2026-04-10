@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tiers-Lieux — Spectacles légers pour lieux vivants</title>
+    <title>Spectacles légers · rencontres vivantes</title>
     <meta
       name="description"
-      content="Des spectacles légers, sensibles et accessibles, pensés pour les tiers-lieux, les espaces partagés et les endroits où l'on se rencontre vraiment."
+      content="Des spectacles légers, sensibles et accessibles, pensés pour les lieux vivants, les espaces partagés et les endroits où l'on se rencontre vraiment."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -144,7 +144,6 @@
         gap: 24px;
       }
 
-      .brand-kicker,
       .eyebrow {
         text-transform: uppercase;
         letter-spacing: 0.24em;
@@ -154,7 +153,6 @@
       }
 
       .brand-sub {
-        margin-top: 2px;
         font-size: 14px;
         color: var(--muted-soft);
       }
@@ -197,35 +195,19 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        background: #ede4d3;
+        background: transparent;
+        line-height: 0;
       }
 
       .hero-media {
-        position: relative;
         display: block;
         width: 100%;
         height: auto;
-        object-fit: contain;
-        object-position: center center;
       }
 
       .hero-overlay,
       .hero-glow {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-      }
-
-      .hero-overlay {
-        background:
-          linear-gradient(180deg, rgba(17, 14, 12, 0.02) 0%, rgba(17, 14, 12, 0.08) 68%, rgba(17, 14, 12, 0.18) 100%);
-      }
-
-      .hero-glow {
-        background:
-          radial-gradient(circle at 14% 22%, rgba(255, 255, 255, 0.16), transparent 18%),
-          radial-gradient(circle at 84% 18%, rgba(255, 255, 255, 0.1), transparent 18%);
-        mix-blend-mode: screen;
+        display: none;
       }
 
       .hero-content {
@@ -235,32 +217,31 @@
         display: flex;
         align-items: flex-end;
         padding: 0 0 28px 0;
+        line-height: normal;
       }
 
       .hero-panel {
         display: inline-flex;
         flex-wrap: wrap;
-        gap: 12px;
-        padding: 14px;
-        border-radius: 999px;
-        background: rgba(245, 242, 232, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        box-shadow: 0 18px 44px rgba(17, 14, 12, 0.16);
-        backdrop-filter: blur(14px);
+        gap: 10px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        backdrop-filter: none;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        min-height: 54px;
-        padding: 0 24px;
-        border-radius: 999px;
-        border: 1px solid transparent;
+        min-height: auto;
+        padding: 2pt 6pt;
+        border-radius: 0;
+        border: 1px solid rgba(255, 255, 255, 0.9);
         font-family: var(--font-sans);
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 0.01em;
         cursor: pointer;
         transition:
@@ -275,29 +256,18 @@
         transform: translateY(-1px);
       }
 
-      .button-primary {
-        background: rgba(255, 251, 245, 0.96);
-        color: var(--text);
-        box-shadow: 0 10px 24px rgba(12, 10, 8, 0.08);
-      }
-
-      .button-primary:hover {
-        background: #fffdf9;
-      }
-
-      .button-secondary {
-        color: white;
-        background: rgba(255, 255, 255, 0.09);
-        border-color: rgba(255, 255, 255, 0.26);
-      }
-
-      .button-secondary:hover {
-        background: rgba(255, 255, 255, 0.14);
-      }
-
+      .button-primary,
+      .button-secondary,
       .button-outline {
-        background: transparent;
-        border-color: rgba(47, 42, 36, 0.16);
+        background: rgba(255, 251, 245, 0.88);
+        color: var(--text);
+        box-shadow: none;
+      }
+
+      .button-primary:hover,
+      .button-secondary:hover,
+      .button-outline:hover {
+        background: rgba(255, 251, 245, 0.98);
       }
 
       section {
@@ -819,12 +789,10 @@
         .hero-panel {
           width: calc(100% - 24px);
           margin: 0 auto;
-          border-radius: 26px;
-          padding: 12px;
         }
 
         .hero-panel .button {
-          flex: 1 1 220px;
+          flex: 0 0 auto;
         }
 
         section {
@@ -899,10 +867,7 @@
   <body>
     <header class="topbar">
       <div class="container topbar-inner">
-        <div>
-          <div class="brand-kicker">tiers-lieux</div>
-          <div class="brand-sub">Spectacles légers · rencontres vivantes</div>
-        </div>
+        <div class="brand-sub">Spectacles légers · rencontres vivantes</div>
 
         <nav class="nav" aria-label="Navigation principale">
           <a href="#promesse">Promesse</a>
@@ -915,19 +880,12 @@
     </header>
 
     <section class="hero" aria-label="Introduction">
-      <img class="hero-media" src="assets/hero.jpg" alt="Visuel d'accueil" />
-      <div class="hero-overlay"></div>
-      <div class="hero-glow"></div>
+      <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
 
       <div class="container hero-content">
         <div class="hero-panel">
-          <a class="button button-primary" href="#contact">
-            Accueillir un spectacle
-            <span aria-hidden="true">→</span>
-          </a>
-          <a class="button button-secondary" href="#spectacles">
-            Découvrir un spectacle
-          </a>
+          <a class="button button-primary" href="#contact">accueillir</a>
+          <a class="button button-secondary" href="#spectacles">découvrir</a>
         </div>
       </div>
     </section>
@@ -947,13 +905,10 @@
               <p>
                 Et si un spectacle était un miroir, une joyeuse passerelle, une
                 invitation à embrasser le foisonnement des aventures humaines, et à
-                interroger en douceur nos propres postures&nbsp;?
+                nous interroger en douceur ?
               </p>
-              <p>
-                Je propose des formes légères, adaptables, qui viennent s'inscrire
-                dans la vie du lieu.
-              </p>
-              <p>On est touché. On s'y reconnaît. On en parle après.</p>
+              <p>Je propose des formes légères et adaptables.</p>
+              <p>On est touché. On s’y reconnaît. On en parle après.</p>
             </div>
 
             <div class="soft-box">
@@ -974,7 +929,7 @@
                 </div>
                 <div class="bullet">
                   <span>🪶</span>
-                  <span>Pas besoin de scène. Une installation légère, au plus proche du public.</span>
+                  <span>Pas besoin de scène. Une installation proche du public.</span>
                 </div>
               </div>
             </div>
@@ -986,7 +941,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Les spectacles</div>
-            <h2>Deux formes légères pour s'émouvoir, sourire et échanger</h2>
+            <h2>Deux formes légères pour rire et échanger</h2>
           </div>
 
           <div class="shows-grid">
@@ -1162,20 +1117,9 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
 
             <div class="stack about-copy">
               <p>
-                Après 20 ans dans la transformation des organisations, je me suis
-                tourné vers le théâtre.
-              </p>
-              <p>
-                Aujourd'hui, je crée des spectacles qui rendent visibles nos façons
-                de penser, de décider, de nous raconter des histoires.
-              </p>
-              <p>
-                Sans chercher à convaincre. Mais en ouvrant des espaces de dialogue.
-              </p>
-              <p>
-                Créateur de passerelles, j'interviens également chez les
-                particuliers, dans les établissements éducatifs, et dans les
-                entreprises.
+                Après 20 ans dans la transformation des organisations, je crée
+                aujourd'hui des spectacles qui interpellent et invitent au dialogue,
+                sans chercher à convaincre.
               </p>
             </div>
           </div>
@@ -1217,7 +1161,6 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
     <footer class="footer">
       <div class="container footer-inner">
         <span>Une invitation au dialogue, au cœur des lieux vivants.</span>
-        <span>Site vitrine — version HTML déployable sur GitHub Pages</span>
       </div>
     </footer>
 
@@ -1248,7 +1191,8 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
 
         function goTo(newIndex) {
           const normalized = (newIndex + slides.length) % slides.length;
-          const direction = normalized > index || (index === slides.length - 1 && normalized === 0) ? 1 : -1;
+          const direction =
+            normalized > index || (index === slides.length - 1 && normalized === 0) ? 1 : -1;
           render(normalized, direction);
         }
 
