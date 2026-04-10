@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
 
@@ -19,16 +19,14 @@
       :root {
         --sand: #f5f2e8;
         --sand-deep: #e8dcc3;
-        --sand-line: rgba(194, 168, 120, 0.22);
-        --card: rgba(255, 251, 245, 0.78);
-        --card-strong: rgba(255, 250, 243, 0.9);
+        --card: rgba(255, 251, 245, 0.8);
+        --card-strong: rgba(255, 251, 245, 0.92);
         --text: #0b0b0b;
         --muted: #5e5951;
         --muted-soft: #766f66;
         --green: #2f6f5e;
         --green-soft: #97b48a;
         --ochre: #c2a878;
-        --white-soft: rgba(255, 255, 255, 0.76);
         --line: rgba(60, 48, 36, 0.1);
         --shadow-soft: 0 14px 40px rgba(40, 30, 20, 0.06);
         --shadow-card: 0 24px 90px rgba(34, 26, 18, 0.08);
@@ -197,7 +195,8 @@
 
       .hero {
         position: relative;
-        min-height: 94vh;
+        width: 100%;
+        min-height: 100svh;
         overflow: hidden;
       }
 
@@ -216,8 +215,8 @@
 
       .hero-overlay {
         background:
-          linear-gradient(180deg, rgba(17, 14, 12, 0.06) 0%, rgba(17, 14, 12, 0.12) 54%, rgba(17, 14, 12, 0.32) 100%),
-          linear-gradient(90deg, rgba(255, 247, 235, 0.02) 0%, rgba(255, 247, 235, 0) 50%, rgba(255, 247, 235, 0.04) 100%);
+          linear-gradient(180deg, rgba(17, 14, 12, 0.04) 0%, rgba(17, 14, 12, 0.1) 52%, rgba(17, 14, 12, 0.3) 100%),
+          linear-gradient(90deg, rgba(255, 247, 235, 0.03) 0%, rgba(255, 247, 235, 0) 50%, rgba(255, 247, 235, 0.03) 100%);
       }
 
       .hero-glow {
@@ -230,10 +229,10 @@
       .hero-content {
         position: relative;
         z-index: 2;
-        min-height: 94vh;
+        min-height: 100svh;
         display: flex;
         align-items: flex-end;
-        padding: 110px 0 42px;
+        padding: 110px 0 34px;
       }
 
       .hero-panel {
@@ -248,29 +247,18 @@
         backdrop-filter: blur(14px);
       }
 
-      .hero-scroll {
-        position: absolute;
-        left: 50%;
-        bottom: 18px;
-        transform: translateX(-50%);
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.78);
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
-        min-height: 52px;
-        padding: 0 22px;
+        min-height: 54px;
+        padding: 0 24px;
         border-radius: 999px;
         border: 1px solid transparent;
         font-family: var(--font-sans);
         font-size: 15px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.01em;
         cursor: pointer;
         transition:
@@ -400,12 +388,6 @@
         line-height: 1.84;
       }
 
-      .promise-copy p:first-child::first-letter,
-      .about-copy p:first-child::first-letter {
-        font-family: var(--font-serif);
-        font-size: 1.12em;
-      }
-
       .soft-box {
         margin-top: 28px;
         padding: 26px;
@@ -479,29 +461,56 @@
 
       .slides {
         position: relative;
-        min-height: 440px;
+        height: 470px;
+        overflow: hidden;
+        perspective: 1400px;
+        transform-style: preserve-3d;
+        background: rgba(255, 252, 246, 0.35);
       }
 
       .slide {
-        display: none;
-        min-height: 440px;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform-origin: center center;
+        transform: rotateY(-90deg) scale(0.98);
+        transition:
+          transform 0.7s cubic-bezier(0.22, 0.8, 0.2, 1),
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+        backface-visibility: hidden;
+        pointer-events: none;
       }
 
       .slide.active {
-        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: rotateY(0deg) scale(1);
+        z-index: 2;
+        pointer-events: auto;
+      }
+
+      .slide.from-right {
+        transform: rotateY(90deg) scale(0.98);
+      }
+
+      .slide.from-left {
+        transform: rotateY(-90deg) scale(0.98);
       }
 
       .slide > img,
       .slide-image {
         width: 100%;
-        height: 440px;
+        height: 470px;
         object-fit: cover;
       }
 
       .split-slide {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        min-height: 440px;
+        min-height: 470px;
+        height: 470px;
       }
 
       .split-slide .copy,
@@ -509,6 +518,7 @@
         display: flex;
         align-items: center;
         padding: 38px;
+        height: 470px;
       }
 
       .text-slide-inner h4,
@@ -533,29 +543,52 @@
         font-size: 12px !important;
       }
 
-      .link-slide {
-        min-height: 440px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        padding: 32px;
-        text-align: center;
+      .teaser-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        padding: 18px;
+        height: 470px;
         background:
           linear-gradient(135deg, rgba(250, 247, 241, 0.98) 0%, rgba(237, 245, 237, 0.98) 100%);
       }
 
-      .link-slide p {
-        max-width: 430px;
-        color: var(--muted);
-        font-size: 18px;
-        line-height: 1.8;
+      .teaser-tile {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        min-height: 100%;
+        display: flex;
+        align-items: flex-end;
+        padding: 26px;
+        color: white;
+        box-shadow: var(--shadow-soft);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .teaser-tile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(to top, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.18), transparent);
+      }
+
+      .teaser-tile span {
+        position: relative;
+        z-index: 1;
+        font-family: var(--font-serif);
+        font-size: clamp(26px, 3vw, 38px);
+        line-height: 1.05;
+        font-weight: 600;
       }
 
       .overlay-slide {
         position: relative;
-        min-height: 440px;
+        min-height: 470px;
+        height: 470px;
       }
 
       .overlay-slide::after {
@@ -659,42 +692,13 @@
         min-height: 560px;
       }
 
-      .chip-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 30px;
-      }
-
-      .chip {
-        padding: 10px 16px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow: var(--shadow-soft);
-        font-size: 14px;
-        color: #5e544a;
-      }
-
       .contact-wrap {
         padding: 36px;
       }
 
       .contact-grid {
         grid-template-columns: 0.94fr 1.06fr;
-        align-items: end;
-      }
-
-      .contact-note {
-        margin-top: 28px;
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        padding: 18px;
-        border-radius: 22px;
-        color: var(--muted);
-        line-height: 1.7;
-        background: rgba(247, 242, 232, 0.95);
-        border: 1px solid rgba(194, 168, 120, 0.16);
+        align-items: center;
       }
 
       .contact-form {
@@ -714,7 +718,7 @@
       }
 
       .field {
-        min-height: 54px;
+        min-height: 56px;
         padding: 0 16px;
       }
 
@@ -735,6 +739,19 @@
         border-color: rgba(47, 111, 94, 0.34);
         box-shadow: 0 0 0 4px rgba(47, 111, 94, 0.08);
         background: white;
+      }
+
+      .contact-cta {
+        min-height: 64px;
+        font-size: 18px;
+        font-weight: 700;
+        background: var(--green);
+        color: white;
+        box-shadow: 0 16px 34px rgba(47, 111, 94, 0.22);
+      }
+
+      .contact-cta:hover {
+        background: #295f51;
       }
 
       .footer {
@@ -758,13 +775,22 @@
         .promise-grid,
         .about-grid,
         .contact-grid,
-        .split-slide {
+        .split-slide,
+        .teaser-grid {
           grid-template-columns: 1fr;
         }
 
         .about-image,
         .about-image img {
           min-height: 440px;
+        }
+
+        .teaser-grid {
+          height: auto;
+        }
+
+        .teaser-tile {
+          min-height: 210px;
         }
       }
 
@@ -784,13 +810,13 @@
           gap: 14px 18px;
         }
 
-        .hero {
-          min-height: 82vh;
+        .hero,
+        .hero-content {
+          min-height: 100svh;
         }
 
         .hero-content {
-          min-height: 82vh;
-          padding: 94px 0 34px;
+          padding: 94px 0 24px;
         }
 
         .hero-panel {
@@ -816,8 +842,7 @@
         .about-copy,
         .contact-copy p,
         .text-slide-inner p,
-        .split-slide p,
-        .link-slide p {
+        .split-slide p {
           font-size: 17px;
         }
 
@@ -835,13 +860,14 @@
         }
 
         .slides,
-        .slide,
         .slide > img,
         .slide-image,
         .overlay-slide,
-        .link-slide {
-          min-height: 390px;
-          height: auto;
+        .split-slide,
+        .text-slide,
+        .split-slide .copy {
+          height: 400px;
+          min-height: 400px;
         }
 
         .ambient-stage {
@@ -850,6 +876,10 @@
 
         .overlay-copy {
           font-size: 28px;
+        }
+
+        .teaser-tile span {
+          font-size: 30px;
         }
       }
 
@@ -902,8 +932,6 @@
           </a>
         </div>
       </div>
-
-      <div class="hero-scroll">faire défiler</div>
     </section>
 
     <main>
@@ -946,12 +974,11 @@
                   <span>🌿</span>
                   <span>Des formes adaptées aux lieux vivants</span>
                 </div>
+                <div class="bullet">
+                  <span>🪶</span>
+                  <span>Pas besoin de scène. Une installation légère, au plus proche du public.</span>
+                </div>
               </div>
-
-              <p style="margin-top: 18px; color: var(--muted); line-height: 1.8">
-                Pas besoin de scène ni de dispositif lourd. Le spectacle s'invite là
-                où les gens sont.
-              </p>
             </div>
           </div>
         </div>
@@ -961,12 +988,7 @@
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Les spectacles</div>
-            <h2>Deux formes légères, pensées pour faire réagir, sourire et dialoguer</h2>
-            <p>
-              Des propositions simples à accueillir, avec un vrai pouvoir de
-              résonance dans les lieux où l'on partage déjà des idées, des repas, du
-              travail ou des élans collectifs.
-            </p>
+            <h2>Deux formes légères pour s'émouvoir, sourire et échanger</h2>
           </div>
 
           <div class="shows-grid">
@@ -1005,27 +1027,26 @@
                 </div>
 
                 <div class="slide">
-                  <div class="link-slide">
-                    <div style="font-size: 48px">🎭</div>
-                    <p>Découvrez le teaser vidéo et le dossier complet du spectacle.</p>
-                    <div class="button-row">
-                      <a
-                        class="button button-primary"
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547"
-                      >
-                        Le Teaser
-                      </a>
-                      <a
-                        class="button button-outline"
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41"
-                      >
-                        Le Dossier
-                      </a>
-                    </div>
+                  <div class="teaser-grid">
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547"
+                      style="background-image:url('assets/mini_teaser_braderies.jpg')"
+                    >
+                      <span>Teaser</span>
+                    </a>
+
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41"
+                      style="background-image:url('assets/mini_dossier_braderies.jpg')"
+                    >
+                      <span>Dossier</span>
+                    </a>
                   </div>
                 </div>
 
@@ -1075,27 +1096,26 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
                 </div>
 
                 <div class="slide">
-                  <div class="link-slide">
-                    <div style="font-size: 48px">🎼</div>
-                    <p>Découvrez le teaser vidéo et le dossier complet du spectacle.</p>
-                    <div class="button-row">
-                      <a
-                        class="button button-primary"
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7"
-                      >
-                        Le Teaser
-                      </a>
-                      <a
-                        class="button button-outline"
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0"
-                      >
-                        Le Dossier
-                      </a>
-                    </div>
+                  <div class="teaser-grid">
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7"
+                      style="background-image:url('assets/mini_teaser_brahms.jpg')"
+                    >
+                      <span>Teaser</span>
+                    </a>
+
+                    <a
+                      class="teaser-tile"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0"
+                      style="background-image:url('assets/mini_dossier_brahms.jpg')"
+                    >
+                      <span>Dossier</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1160,13 +1180,6 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
                 entreprises.
               </p>
             </div>
-
-            <div class="chip-row">
-              <span class="chip">Tiers-lieux</span>
-              <span class="chip">Établissements éducatifs</span>
-              <span class="chip">Entreprises</span>
-              <span class="chip">Particuliers</span>
-            </div>
           </div>
         </div>
       </section>
@@ -1181,15 +1194,6 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
                 Vous avez un lieu, une envie, une intuition ? Je serais heureux
                 d'échanger avec vous.
               </p>
-
-              <div class="contact-note">
-                <span>📩</span>
-                <span>
-                  Le bouton ouvre votre messagerie avec votre adresse de destination
-                  déjà renseignée :
-                  <strong>serge.mascaro@gmail.com</strong>.
-                </span>
-              </div>
             </div>
 
             <form class="contact-form" id="contact-form">
@@ -1202,7 +1206,7 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
                 placeholder="Parlez-moi de votre lieu, de votre envie ou de votre intuition..."
               ></textarea>
 
-              <a class="button button-primary" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
+              <a class="button contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
                 Me contacter
                 <span aria-hidden="true">→</span>
               </a>
@@ -1226,33 +1230,35 @@ Possibilité d'organiser un débat quelques jours avant le spectacle</div>
         const prev = carousel.querySelector("[data-prev]");
         const next = carousel.querySelector("[data-next]");
         let index = 0;
-        let timer;
 
-        function render() {
-          slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
-          dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+        function render(newIndex, direction = 1) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove("active", "from-left", "from-right");
+            if (i !== newIndex) {
+              slide.classList.add(direction > 0 ? "from-right" : "from-left");
+            }
+          });
+
+          requestAnimationFrame(() => {
+            slides[newIndex].classList.remove("from-left", "from-right");
+            slides[newIndex].classList.add("active");
+          });
+
+          dots.forEach((dot, i) => dot.classList.toggle("active", i === newIndex));
+          index = newIndex;
         }
 
         function goTo(newIndex) {
-          index = (newIndex + slides.length) % slides.length;
-          render();
-          restart();
-        }
-
-        function restart() {
-          clearInterval(timer);
-          timer = setInterval(() => {
-            index = (index + 1) % slides.length;
-            render();
-          }, 5000);
+          const normalized = (newIndex + slides.length) % slides.length;
+          const direction = normalized > index || (index === slides.length - 1 && normalized === 0) ? 1 : -1;
+          render(normalized, direction);
         }
 
         prev.addEventListener("click", () => goTo(index - 1));
         next.addEventListener("click", () => goTo(index + 1));
         dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
 
-        render();
-        restart();
+        render(0, 1);
       });
 
       const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
