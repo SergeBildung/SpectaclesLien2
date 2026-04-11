@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -78,7 +79,7 @@
         z-index: 0;
       }
 
-      img {
+      img, video {
         max-width: 100%;
         display: block;
       }
@@ -182,7 +183,7 @@
         transform: scaleX(1);
       }
 
-      /* === HERO (AJUSTEMENT LARGEUR EXACTE) === */
+      /* === HERO === */
       .hero {
         position: relative;
         width: 100%;
@@ -196,7 +197,7 @@
       .hero-media {
         display: block;
         width: 100%;
-        height: auto; /* Conserve le ratio natif de l'image */
+        height: auto; 
         margin: 0;
         z-index: 1;
       }
@@ -204,7 +205,7 @@
       .hero-actions {
         position: absolute;
         left: 56px;
-        bottom: 24px; /* Remonté un peu selon la taille du bandeau */
+        bottom: 24px; 
         z-index: 5;
         display: flex;
         gap: 12px;
@@ -397,6 +398,8 @@
         background: rgba(255, 252, 246, 0.35);
         z-index: 2;
         cursor: grab;
+        /* INDISPENSABLE: Autorise le scroll vertical natif mais laisse JS gérer l'horizontal */
+        touch-action: pan-y;
       }
 
       .carousel-3d-scene:active {
@@ -517,17 +520,29 @@
         align-items: flex-start;
         padding: 66% 26px 26px 26px; 
         color: white;
+        background-color: #222; /* Fallback color */
         background-position: center;
         background-size: cover;
         text-decoration: none;
+      }
+
+      /* NOUVEAU: Style pour la vidéo en arrière-plan */
+      .teaser-video-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
       }
 
       .teaser-tile::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.4) 40%, transparent 100%);
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.3) 50%, transparent 100%);
         transition: opacity 0.3s ease;
+        z-index: 1; /* Assure que le dégradé est au-dessus de la vidéo */
       }
 
       .teaser-tile:hover::before {
@@ -536,11 +551,12 @@
 
       .teaser-tile span {
         position: relative;
-        z-index: 1;
+        z-index: 2; /* Assure que le texte est au-dessus de tout */
         font-family: var(--font-serif);
         font-size: clamp(26px, 3vw, 38px);
         font-weight: 600;
         transition: transform 0.3s ease;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Améliore la lisibilité sur la vidéo */
       }
 
       .teaser-tile:hover span {
@@ -647,7 +663,7 @@
         min-height: 560px;
       }
 
-      /* --- SECTION CONTACT & FOOTER DUNE --- */
+      /* --- SECTION CONTACT DUNE --- */
       .contact-section-wrapper {
         position: relative;
         background-color: #f7f4ea; 
@@ -697,7 +713,7 @@
       }
 
       .contact-cta {
-        display: inline-block;
+        display: inline-flex;
         min-height: auto;
         padding: 16px 48px;
         font-size: 26px; 
@@ -711,6 +727,8 @@
         transition: background 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
         box-shadow: 0 8px 24px rgba(57, 92, 75, 0.2);
         margin-top: 20px;
+        cursor: pointer;
+        border: none;
       }
 
       .contact-cta:hover {
@@ -730,6 +748,111 @@
         border-top: 1px solid rgba(194, 168, 120, 0.3);
         color: #7b8579;
         font-size: 16px;
+      }
+
+      /* === MODALE FORMULAIRE (FORMSPREE) === */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 15, 10, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        padding: 20px;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: var(--card-strong);
+        width: 100%;
+        max-width: 600px;
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        position: relative;
+        transform: translateY(30px) scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        border: 1px solid rgba(194, 168, 120, 0.3);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: translateY(0) scale(1);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        background: none;
+        border: none;
+        font-size: 32px;
+        line-height: 1;
+        cursor: pointer;
+        color: var(--muted);
+        transition: color 0.2s ease;
+      }
+
+      .modal-close:hover {
+        color: var(--text);
+      }
+
+      .modal-content h3 {
+        font-size: 32px;
+        margin-bottom: 24px;
+        color: #2c352b;
+      }
+
+      .formspree-form {
+        display: grid;
+        gap: 16px;
+      }
+
+      .form-field {
+        width: 100%;
+        border: 1px solid #e3dbcf;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--text);
+        font: inherit;
+        padding: 16px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .form-field:focus {
+        outline: none;
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(47, 111, 94, 0.1);
+      }
+
+      textarea.form-field {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .form-submit {
+        background: #395c4b;
+        color: white;
+        border: none;
+        padding: 16px;
+        font-size: 20px;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        margin-top: 10px;
+      }
+
+      .form-submit:hover {
+        background: #2a4738;
       }
 
       /* MEDIA QUERIES */
@@ -752,7 +875,6 @@
         .nav { gap: 14px 18px; }
         .nav a { font-size: 18px; }
 
-        /* Ajustement Mobile pour que les boutons restent visibles si le bandeau est très court */
         .hero-actions { 
            left: 20px; 
            bottom: 12px; 
@@ -787,6 +909,8 @@
         .ambient-stage { height: 430px; }
         .contact-cta { font-size: 22px; padding: 14px 36px; }
         .contact-wrap { padding: 60px 20px 40px; }
+
+        .modal-content { padding: 30px 20px; }
       }
     </style>
   </head>
@@ -871,16 +995,14 @@
 
           <div class="shows-grid">
             
-            <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
             <article class="card carousel reveal" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
               </div>
 
-              <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="4">
-                <button class="carousel-btn prev" type="button" data-prev>‹</button>
-                <button class="carousel-btn next" type="button" data-next>›</button>
+                <button class="carousel-btn prev" type="button" data-prev tabindex="0" aria-label="Face précédente">‹</button>
+                <button class="carousel-btn next" type="button" data-next tabindex="0" aria-label="Face suivante">›</button>
 
                 <div class="carousel-3d-rig">
                   
@@ -903,9 +1025,13 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547" style="background-image:url('assets/mini_teaser_braderies.jpg')">
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547">
+                        <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_braderies.jpg">
+                          <source src="assets/teaser-braderies-loop.mp4" type="video/mp4">
+                        </video>
                         <span>Teaser</span>
                       </a>
+                      
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/b7f5dd88-0048-4331-9b3a-084c616cca41" style="background-image:url('assets/mini_dossier_braderies.jpg')">
                         <span>Dossier</span>
                       </a>
@@ -924,7 +1050,6 @@
                 </div>
               </div>
 
-              <!-- POINTS DE NAVIGATION -->
               <div class="dots">
                 <button class="dot active" type="button"></button>
                 <button class="dot" type="button"></button>
@@ -933,16 +1058,14 @@
               </div>
             </article>
 
-            <!-- CUBE 2 : BRAHMS (3 FACES) -->
             <article class="card carousel reveal" data-carousel-3d style="transition-delay: 0.1s;">
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
               </div>
 
-              <!-- SCÈNE 3D -->
               <div class="carousel-3d-scene" data-faces="3">
-                <button class="carousel-btn prev" type="button" data-prev>‹</button>
-                <button class="carousel-btn next" type="button" data-next>›</button>
+                <button class="carousel-btn prev" type="button" data-prev tabindex="0" aria-label="Face précédente">‹</button>
+                <button class="carousel-btn next" type="button" data-next tabindex="0" aria-label="Face suivante">›</button>
 
                 <div class="carousel-3d-rig">
                   
@@ -966,9 +1089,13 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7" style="background-image:url('assets/mini_teaser_brahms.jpg')">
+                      <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7">
+                        <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_brahms.jpg">
+                          <source src="assets/teaser-brahms-loop.mp4" type="video/mp4">
+                        </video>
                         <span>Teaser</span>
                       </a>
+                      
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/16ee63bc-885c-4766-8792-0316133654c0" style="background-image:url('assets/mini_dossier_brahms.jpg')">
                         <span>Dossier</span>
                       </a>
@@ -978,7 +1105,6 @@
                 </div>
               </div>
               
-              <!-- POINTS DE NAVIGATION -->
               <div class="dots">
                 <button class="dot active" type="button"></button>
                 <button class="dot" type="button"></button>
@@ -1034,9 +1160,9 @@
             </div>
 
             <div class="contact-form">
-              <a class="contact-cta" id="mailto-link" href="mailto:serge.mascaro@gmail.com">
+              <button class="contact-cta" id="open-contact-modal">
                 Me contacter
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -1049,6 +1175,22 @@
       </section>
       
     </main>
+
+    <div class="modal-overlay" id="contact-modal">
+      <div class="modal-content">
+        <button class="modal-close" id="close-contact-modal" aria-label="Fermer">×</button>
+        <h3>Discutons-en</h3>
+        
+        <form action="https://formspree.io/f/mqegrdyq" method="POST" class="formspree-form">
+          <input type="text" name="name" class="form-field" placeholder="Votre nom" required>
+          <input type="email" name="email" class="form-field" placeholder="Votre adresse email" required>
+          <input type="text" name="lieu" class="form-field" placeholder="Nom du lieu (optionnel)">
+          <textarea name="message" class="form-field" placeholder="Parlez-moi de votre lieu, de votre envie ou de votre intuition..." required></textarea>
+          
+          <button type="submit" class="form-submit">Envoyer le message</button>
+        </form>
+      </div>
+    </div>
 
     <script>
       // === ANIMATIONS AU DEFILEMENT (REVEAL) ===
@@ -1067,7 +1209,7 @@
 
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-      // === GESTION DES CUBES 3D TACTILES ===
+      // === GESTION DES CUBES 3D TACTILES & SÉCURISÉS ===
       document.querySelectorAll("[data-carousel-3d]").forEach((carousel) => {
         const scene = carousel.querySelector(".carousel-3d-scene");
         const rig = carousel.querySelector(".carousel-3d-rig");
@@ -1128,42 +1270,50 @@
           };
         });
 
-        // --- GESTION DU TACTILE (SWIPE & DRAG) ---
+        // --- GESTION DU TACTILE (SWIPE SÉCURISÉ) ---
         let touchStartX = 0;
+        let touchStartY = 0;
         let touchEndX = 0;
+        let touchEndY = 0;
         let isDragging = false;
 
-        // Mobiles
         scene.addEventListener('touchstart', e => {
           touchStartX = e.changedTouches[0].screenX;
+          touchStartY = e.changedTouches[0].screenY;
         }, {passive: true});
 
         scene.addEventListener('touchend', e => {
           touchEndX = e.changedTouches[0].screenX;
+          touchEndY = e.changedTouches[0].screenY;
           handleSwipe();
         }, {passive: true});
 
-        // Souris (PC)
         scene.addEventListener('mousedown', e => {
           touchStartX = e.screenX;
+          touchStartY = e.screenY;
           isDragging = true;
         });
 
         window.addEventListener('mouseup', e => {
           if(isDragging) {
              touchEndX = e.screenX;
+             touchEndY = e.screenY;
              isDragging = false;
              handleSwipe();
           }
         });
 
         function handleSwipe() {
-           const threshold = 60; // Sensibilité du glissement
-           if (touchEndX < touchStartX - threshold) {
-              goNext();
-           }
-           if (touchEndX > touchStartX + threshold) {
-              goPrev();
+           const deltaX = touchEndX - touchStartX;
+           const deltaY = touchEndY - touchStartY;
+           const threshold = 40; 
+           
+           if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+              if (deltaX < 0) {
+                 goNext(); 
+              } else {
+                 goPrev(); 
+              }
            }
         }
       });
@@ -1176,6 +1326,37 @@
         ambientIndex = (ambientIndex + 1) % ambientImages.length;
         ambientImages[ambientIndex].classList.add("active");
       }, 3500);
+
+      // === GESTION DE LA MODALE DE CONTACT ===
+      const modal = document.getElementById('contact-modal');
+      const openBtn = document.getElementById('open-contact-modal');
+      const closeBtn = document.getElementById('close-contact-modal');
+
+      function openModal(e) {
+         e.preventDefault();
+         modal.classList.add('active');
+         document.body.style.overflow = 'hidden'; 
+      }
+
+      function closeModal() {
+         modal.classList.remove('active');
+         document.body.style.overflow = ''; 
+      }
+
+      openBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      
+      modal.addEventListener('click', (e) => {
+         if (e.target === modal) {
+            closeModal();
+         }
+      });
+
+      document.addEventListener('keydown', (e) => {
+         if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+         }
+      });
 
     </script>
   </body>
