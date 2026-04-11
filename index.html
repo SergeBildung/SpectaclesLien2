@@ -472,6 +472,7 @@
         width: 38%; 
         height: 85%; 
         object-fit: cover; 
+        object-position: top center; /* CORRECTION : Garde le haut (visages) visible si recadrage */
         border-radius: 12px;
         margin-left: 38px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -513,8 +514,8 @@
         overflow: hidden;
         border-radius: 24px;
         display: flex;
-        align-items: flex-start;
-        padding: 66% 26px 26px 26px; 
+        align-items: flex-start; /* CORRECTION : Aligne le contenu vers le haut */
+        padding: 26px; /* CORRECTION : Enlève le grand padding du haut */
         color: white;
         background-color: #222; 
         background-position: center;
@@ -535,7 +536,8 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.3) 50%, transparent 100%);
+        /* CORRECTION : Dégradé du haut vers le bas pour lire le texte placé en haut */
+        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.2) 60%, transparent 100%);
         transition: opacity 0.3s ease;
         z-index: 1; 
       }
@@ -555,7 +557,7 @@
       }
 
       .teaser-tile:hover span {
-        transform: translateY(-4px);
+        transform: translateY(4px); /* Inverse l'animation hover vu qu'il est en haut */
       }
 
       .overlay-slide {
@@ -865,7 +867,7 @@
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
-        .teaser-tile { min-height: 210px; padding-top: 60%; } 
+        .teaser-tile { min-height: 210px; } 
       }
 
       @media (max-width: 768px) {
@@ -900,6 +902,7 @@
            height: 40%; 
            margin: 20px auto 0; 
            object-fit: cover; 
+           object-position: top center; /* CORRECTION : Assure le cadrage du visage sur mobile aussi */
            box-shadow: 0 6px 16px rgba(0,0,0,0.1); 
         }
         .split-slide .copy { padding: 10px 20px 20px; }
@@ -999,6 +1002,7 @@
 
           <div class="shows-grid">
             
+            <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
             <article class="card carousel reveal" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
@@ -1062,6 +1066,7 @@
               </div>
             </article>
 
+            <!-- CUBE 2 : BRAHMS (3 FACES) -->
             <article class="card carousel reveal" data-carousel-3d style="transition-delay: 0.1s;">
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
@@ -1180,6 +1185,7 @@
       
     </main>
 
+    <!-- === FENÊTRE MODALE DE CONTACT INVISIBLE (FORMSPREE) === -->
     <div class="modal-overlay" id="contact-modal">
       <div class="modal-content">
         <button class="modal-close" id="close-contact-modal" aria-label="Fermer">×</button>
@@ -1361,6 +1367,3 @@
     </script>
   </body>
 </html>
-
-
-```
