@@ -458,6 +458,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        /* CORRECTION : L'image est toujours recadrée depuis le haut pour éviter de couper les têtes */
+        object-position: top center;
       }
 
       /* === AJUSTEMENT ILLUSTRATION DE DESCRIPTION (SPLIT SLIDE) === */
@@ -501,6 +503,7 @@
         line-height: 1.8;
       }
 
+      /* === TUILES TEASER ET DOSSIER === */
       .teaser-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -515,10 +518,11 @@
         border-radius: 24px;
         display: flex;
         align-items: flex-start; /* CORRECTION : Aligne le contenu vers le haut */
-        padding: 26px; /* CORRECTION : Enlève le grand padding du haut */
+        padding: 26px; /* CORRECTION : Enlève le grand padding du haut pour être bien visible */
+        min-height: 250px;
         color: white;
         background-color: #222; 
-        background-position: center;
+        background-position: top center; /* CORRECTION : Recadre les images de fond par le haut */
         background-size: cover;
         text-decoration: none;
       }
@@ -529,6 +533,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: top center; /* CORRECTION : Recadre la vidéo par le haut */
         z-index: 0;
       }
 
@@ -537,7 +542,7 @@
         position: absolute;
         inset: 0;
         /* CORRECTION : Dégradé du haut vers le bas pour lire le texte placé en haut */
-        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.2) 60%, transparent 100%);
+        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.2) 50%, transparent 100%);
         transition: opacity 0.3s ease;
         z-index: 1; 
       }
@@ -557,7 +562,7 @@
       }
 
       .teaser-tile:hover span {
-        transform: translateY(4px); /* Inverse l'animation hover vu qu'il est en haut */
+        transform: translateY(4px); /* Pousse le texte légèrement vers l'intérieur de la boîte */
       }
 
       .overlay-slide {
@@ -867,7 +872,7 @@
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
-        .teaser-tile { min-height: 210px; } 
+        .teaser-tile { min-height: 210px; } /* CORRECTION : Enlève le padding top forcé */
       }
 
       @media (max-width: 768px) {
@@ -1033,6 +1038,7 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
+                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_braderies.jpg">
                           <source src="assets/teaser-braderies-loop.mp4" type="video/mp4">
@@ -1098,6 +1104,7 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
+                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_brahms.jpg">
                           <source src="assets/teaser-brahms-loop.mp4" type="video/mp4">
@@ -1267,7 +1274,7 @@
             let isInteracting = isHovered || isTouched;
             
             if (!isInteracting) {
-                targetRotation += 0.20; // Vitesse de la rotation lente (0.20)
+                targetRotation += 0.20; // Vitesse de la rotation lente
             }
             
             actualRotation += (targetRotation - actualRotation) * 0.1;
