@@ -55,27 +55,26 @@
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        background:
-          radial-gradient(circle at 10% 16%, rgba(151, 180, 138, 0.11), transparent 16%),
-          radial-gradient(circle at 88% 18%, rgba(47, 111, 94, 0.08), transparent 14%),
-          radial-gradient(circle at 18% 84%, rgba(151, 180, 138, 0.08), transparent 18%),
-          radial-gradient(circle at 86% 86%, rgba(194, 168, 120, 0.1), transparent 18%),
-          linear-gradient(180deg, #f7f3ea 0%, #f3ecde 100%);
+        
+        /* === FOND AMBIANCE DUNE GLOBALE === */
+        background-color: #f8f6f0; 
+        background-image: 
+          radial-gradient(ellipse at 15% 30%, rgba(220, 205, 175, 0.4) 0%, transparent 50%),
+          radial-gradient(ellipse at 85% 70%, rgba(151, 180, 138, 0.2) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 100%, rgba(235, 220, 195, 0.6) 0%, transparent 70%);
+        background-attachment: fixed;
         overflow-x: hidden;
       }
 
+      /* TEXTURE GRAIN DE SABLE (Bruit fractal) */
       body::before {
         content: "";
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background-image:
-          radial-gradient(rgba(194, 168, 120, 0.4) 0.7px, transparent 0.7px),
-          radial-gradient(rgba(151, 180, 138, 0.12) 1px, transparent 1px);
-        background-size: 18px 18px, 140px 140px;
-        background-position: 0 0, 30px 50px;
-        opacity: 0.18;
         z-index: 0;
+        opacity: 0.6;
+        background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.12"/%3E%3C/svg%3E');
       }
 
       img, video {
@@ -440,7 +439,6 @@
         height: 100%;
         position: absolute;
         transform-style: preserve-3d;
-        /* La transition CSS est gérée entièrement par le JS (Lerp) pour l'auto-rotation */
         pointer-events: none; 
       }
       
@@ -660,18 +658,25 @@
         min-height: 560px;
       }
 
-      /* --- SECTION CONTACT DUNE --- */
+      /* --- SECTION CONTACT (Transparente pour laisser voir le fond Dune) --- */
       .contact-section-wrapper {
         position: relative;
-        background-color: #f7f4ea; 
-        background-image: 
-          radial-gradient(circle at 50% 0%, rgba(243, 236, 222, 1) 0%, rgba(247, 244, 234, 0) 60%),
-          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><g fill="rgba(120, 140, 120, 0.08)" transform="scale(0.8)"><path d="M50 150 Q40 100 20 80 Q35 110 50 150 Z"/><path d="M50 150 Q60 90 80 70 Q65 110 50 150 Z"/><path d="M50 150 Q55 80 50 50 Q45 80 50 150 Z"/></g><g fill="rgba(150, 160, 130, 0.06)" transform="translate(100, 50) scale(0.5)"><path d="M50 150 Q40 100 20 80 Q35 110 50 150 Z"/><path d="M50 150 Q60 90 80 70 Q65 110 50 150 Z"/><path d="M50 150 Q55 80 50 50 Q45 80 50 150 Z"/></g></svg>');
-        background-position: center;
+        background: transparent;
         border-top: 1px solid rgba(194, 168, 120, 0.2);
       }
 
+      .contact-section-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent 60%, rgba(220, 205, 175, 0.2) 100%);
+      }
+
       .contact-wrap {
+        position: relative;
+        z-index: 1;
         padding: 80px 20px 60px;
         text-align: center;
       }
@@ -740,6 +745,8 @@
       }
 
       .footer-dune {
+        position: relative;
+        z-index: 1;
         padding: 40px 0;
         text-align: center;
         border-top: 1px solid rgba(194, 168, 120, 0.3);
@@ -992,7 +999,6 @@
 
           <div class="shows-grid">
             
-            <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
             <article class="card carousel reveal" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
@@ -1023,7 +1029,6 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_braderies.jpg">
                           <source src="assets/teaser-braderies-loop.mp4" type="video/mp4">
@@ -1057,7 +1062,6 @@
               </div>
             </article>
 
-            <!-- CUBE 2 : BRAHMS (3 FACES) -->
             <article class="card carousel reveal" data-carousel-3d style="transition-delay: 0.1s;">
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
@@ -1089,7 +1093,6 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_brahms.jpg">
                           <source src="assets/teaser-brahms-loop.mp4" type="video/mp4">
@@ -1177,7 +1180,6 @@
       
     </main>
 
-    <!-- === FENÊTRE MODALE DE CONTACT INVISIBLE (FORMSPREE) === -->
     <div class="modal-overlay" id="contact-modal">
       <div class="modal-content">
         <button class="modal-close" id="close-contact-modal" aria-label="Fermer">×</button>
@@ -1211,7 +1213,7 @@
 
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-      // === GESTION DES CUBES 3D : LERP (AUTO-ROTATION DOUCE) + SWIPE SÉCURISÉ ===
+      // === GESTION DES CUBES 3D : LERP (AUTO-ROTATION) + SWIPE SÉCURISÉ ===
       document.querySelectorAll("[data-carousel-3d]").forEach((carousel) => {
         const scene = carousel.querySelector(".carousel-3d-scene");
         const rig = carousel.querySelector(".carousel-3d-rig");
@@ -1220,34 +1222,28 @@
         const prev = carousel.querySelector("[data-prev]");
         const next = carousel.querySelector("[data-next]");
         
-        // On supprime la transition CSS car l'auto-rotation l'effectue en JS frame par frame
         rig.style.transition = 'none';
 
         const numFaces = parseInt(scene.dataset.faces, 10);
         const angle = 360 / numFaces;
         
-        // targetRotation est la cible mathématique (qui augmente de 0.05 par frame au repos)
         let targetRotation = 0;
-        // actualRotation est la rotation qui "rattrape" doucement la cible (Lerp)
         let actualRotation = 0;
         
         let isHovered = false;
         let isTouched = false;
         let touchTimer;
 
-        // Fonction pour figer le cube sur la face la plus proche
         function pauseAndSnap() {
            isHovered = true;
            targetRotation = Math.round(actualRotation / angle) * angle;
         }
 
-        // Evénements Souris (ordinateur)
         carousel.addEventListener('mouseenter', pauseAndSnap);
-        carousel.addEventListener('focusin', pauseAndSnap); // Pour l'accessibilité au clavier
+        carousel.addEventListener('focusin', pauseAndSnap);
         carousel.addEventListener('mouseleave', () => isHovered = false);
         carousel.addEventListener('focusout', () => isHovered = false);
 
-        // Recalcul des dimensions si l'écran change de taille
         const ro = new ResizeObserver(entries => {
           for (let entry of entries) {
             const width = entry.contentRect.width;
@@ -1261,28 +1257,24 @@
         });
         ro.observe(scene);
 
-        // Boucle d'animation à 60 images/secondes
         function animate() {
             let isInteracting = isHovered || isTouched;
             
             if (!isInteracting) {
-                targetRotation += 0.20; // Vitesse de la rotation lente ambiante
+                targetRotation += 0.20; // Vitesse de la rotation lente (0.20)
             }
             
-            // Calcul de l'interpolation (Lerp) pour une rotation très douce
             actualRotation += (targetRotation - actualRotation) * 0.1;
             
             rig.style.transform = `translateZ(calc(var(--tz) * -1)) rotateY(${-actualRotation}deg)`;
             
-            // Mise à jour des points de navigation
             const normalizedIndex = ((Math.round(actualRotation / angle) % numFaces) + numFaces) % numFaces;
             dots.forEach((d, i) => d.classList.toggle("active", i === normalizedIndex));
             
             requestAnimationFrame(animate);
         }
-        animate(); // Lance la boucle
+        animate(); 
 
-        // Actions des flèches et points
         prev.onclick = () => targetRotation -= angle;
         next.onclick = () => targetRotation += angle;
         
@@ -1295,7 +1287,6 @@
           };
         });
 
-        // --- GESTION DU TACTILE (SWIPE SÉCURISÉ) ---
         let touchStartX = 0;
         let touchStartY = 0;
         let touchEndX = 0;
@@ -1304,7 +1295,7 @@
         scene.addEventListener('touchstart', e => {
           isTouched = true;
           clearTimeout(touchTimer);
-          targetRotation = Math.round(actualRotation / angle) * angle; // Stop la rotation
+          targetRotation = Math.round(actualRotation / angle) * angle;
 
           touchStartX = e.changedTouches[0].screenX;
           touchStartY = e.changedTouches[0].screenY;
@@ -1318,13 +1309,11 @@
           const deltaY = touchEndY - touchStartY;
           const threshold = 40; 
           
-          // N'effectue le swipe 3D que si le mouvement est + horizontal que vertical
           if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
              if (deltaX < 0) targetRotation += angle; 
              else targetRotation -= angle;
           }
 
-          // Relance la rotation lente après 2.5 secondes de repos
           touchTimer = setTimeout(() => { isTouched = false; }, 2500);
         }, {passive: true});
       });
