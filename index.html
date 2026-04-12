@@ -25,7 +25,7 @@
         --muted: #5e5951;
         --muted-soft: #766f66;
         --green: #2f6f5e;
-        --green-dark: #1a3d34; /* Nouveau vert plus sombre */
+        --green-dark: #1a3d34; /* Vert émeraude sombre pour les faces */
         --green-soft: #97b48a;
         --ochre: #c2a878;
         --line: rgba(60, 48, 36, 0.1);
@@ -384,12 +384,12 @@
         text-align: center;
       }
 
-      /* === MODIF : SYSTÈME CUBE 3D ET COULEURS === */
+      /* === SYSTÈME CUBE 3D === */
       .carousel-3d-scene {
         position: relative;
         height: 470px;
         perspective: 1800px;
-        background: var(--green-dark); /* Fond vert émeraude sombre */
+        background: rgba(255, 252, 246, 0.35); /* Fond clair du cube (remis comme avant) */
         z-index: 2;
         cursor: grab;
         touch-action: pan-y;
@@ -439,11 +439,13 @@
         pointer-events: none; 
       }
       
+      /* === FACES DU CUBE (SLIDES) === */
       .slide-3d {
         position: absolute;
         inset: 0;
-        background: var(--card-strong);
-        border: 1px solid rgba(47, 42, 36, 0.08);
+        background: var(--green-dark); /* Fond vert émeraude sombre pour chaque face */
+        color: white; /* Texte en blanc sur les faces */
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: var(--radius-md);
         overflow: hidden;
         backface-visibility: hidden;
@@ -451,13 +453,20 @@
         pointer-events: auto; 
       }
 
-      /* On applique le style aux images ET aux vidéos des faces */
       .slide-3d > img, 
       .slide-3d > video.poster-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: top center;
+      }
+
+      /* On s'assure que les textes secondaires passent aussi en blanc/clair */
+      .slide-3d h4, .slide-3d p {
+        color: white !important;
+      }
+      .slide-3d .muted-soft-text {
+        color: rgba(255, 255, 255, 0.7) !important;
       }
 
       .split-slide {
@@ -474,7 +483,7 @@
         object-position: top center; 
         border-radius: 12px;
         margin-left: 38px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       }
 
       .split-slide .copy {
@@ -495,7 +504,6 @@
       .text-slide-inner p,
       .split-slide p {
         margin-top: 14px;
-        color: var(--muted);
         font-size: 20px; 
         line-height: 1.8;
       }
@@ -586,6 +594,7 @@
         font-family: var(--font-serif);
         font-size: 28px;
         line-height: 1.15;
+        color: white !important;
       }
 
       .dots {
@@ -938,8 +947,8 @@
       <img class="hero-media" src="assets/bandeau.jpg" alt="Visuel d'accueil" />
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#contact">accueillir</a>
         <a class="button button-secondary" href="#spectacles">découvrir</a>
+        <a class="button button-primary" href="#contact">accueillir</a>
       </div>
     </section>
 
@@ -1023,7 +1032,7 @@
                         <div>
                           <h4>Les Braderies de la Terre</h4>
                           <p>Un cabaret écologiste entre rire, poésie, chansons, et interactions.</p>
-                          <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                          <p class="muted-soft-text" style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px;">1h15 · Tous publics · Dispositif léger</p>
                         </div>
                       </div>
                     </div>
@@ -1089,7 +1098,7 @@
                           <h4>J'irai chanter du Brahms dans un supermarché</h4>
                           <p>La journée déroutante d'un manager en crise.</p>
                           <p>Tragi-comédie tendrement drôle, en alexandrins.</p>
-                          <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px; color:var(--muted-soft)">1h15 · Tous publics · Dispositif léger</p>
+                          <p class="muted-soft-text" style="text-transform:uppercase; letter-spacing:0.1em; font-size:14px; margin-top:15px;">1h15 · Tous publics · Dispositif léger</p>
                         </div>
                       </div>
                     </div>
