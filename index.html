@@ -25,6 +25,7 @@
         --muted: #5e5951;
         --muted-soft: #766f66;
         --green: #2f6f5e;
+        --green-dark: #1a3d34; /* Nouveau vert plus sombre */
         --green-soft: #97b48a;
         --ochre: #c2a878;
         --line: rgba(60, 48, 36, 0.1);
@@ -56,7 +57,6 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         
-        /* === FOND AMBIANCE DUNE GLOBALE === */
         background-color: #f8f6f0; 
         background-image: 
           radial-gradient(ellipse at 15% 30%, rgba(220, 205, 175, 0.4) 0%, transparent 50%),
@@ -66,7 +66,6 @@
         overflow-x: hidden;
       }
 
-      /* TEXTURE GRAIN DE SABLE (Bruit fractal) */
       body::before {
         content: "";
         position: fixed;
@@ -98,7 +97,6 @@
         letter-spacing: -0.02em;
       }
 
-      /* === ANIMATIONS AU DÉFILEMENT (REVEAL) === */
       .reveal {
         opacity: 0;
         transform: translateY(40px);
@@ -181,7 +179,6 @@
         transform: scaleX(1);
       }
 
-      /* === HERO === */
       .hero {
         position: relative;
         width: 100%;
@@ -211,7 +208,6 @@
         line-height: normal;
       }
 
-      /* === MICRO-INTERACTIONS BOUTONS === */
       .button {
         display: inline-flex;
         align-items: center;
@@ -388,15 +384,16 @@
         text-align: center;
       }
 
-      /* === SYSTÈME CUBE 3D & BOUTONS === */
+      /* === MODIF : SYSTÈME CUBE 3D ET COULEURS === */
       .carousel-3d-scene {
         position: relative;
         height: 470px;
         perspective: 1800px;
-        background: rgba(255, 252, 246, 0.35);
+        background: var(--green-dark); /* Fond vert émeraude sombre */
         z-index: 2;
         cursor: grab;
         touch-action: pan-y;
+        overflow: hidden;
       }
 
       .carousel-3d-scene:active {
@@ -454,15 +451,15 @@
         pointer-events: auto; 
       }
 
-      .slide-3d > img {
+      /* On applique le style aux images ET aux vidéos des faces */
+      .slide-3d > img, 
+      .slide-3d > video.poster-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* CORRECTION : L'image est toujours recadrée depuis le haut pour éviter de couper les têtes */
         object-position: top center;
       }
 
-      /* === AJUSTEMENT ILLUSTRATION DE DESCRIPTION (SPLIT SLIDE) === */
       .split-slide {
         display: flex;
         align-items: center;
@@ -474,7 +471,7 @@
         width: 38%; 
         height: 85%; 
         object-fit: cover; 
-        object-position: top center; /* CORRECTION : Garde le haut (visages) visible si recadrage */
+        object-position: top center; 
         border-radius: 12px;
         margin-left: 38px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -503,7 +500,6 @@
         line-height: 1.8;
       }
 
-      /* === TUILES TEASER ET DOSSIER === */
       .teaser-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -517,12 +513,12 @@
         overflow: hidden;
         border-radius: 24px;
         display: flex;
-        align-items: flex-start; /* CORRECTION : Aligne le contenu vers le haut */
-        padding: 26px; /* CORRECTION : Enlève le grand padding du haut pour être bien visible */
+        align-items: flex-start; 
+        padding: 26px; 
         min-height: 250px;
         color: white;
         background-color: #222; 
-        background-position: top center; /* CORRECTION : Recadre les images de fond par le haut */
+        background-position: top center; 
         background-size: cover;
         text-decoration: none;
       }
@@ -533,7 +529,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: top center; /* CORRECTION : Recadre la vidéo par le haut */
+        object-position: top center; 
         z-index: 0;
       }
 
@@ -541,7 +537,6 @@
         content: "";
         position: absolute;
         inset: 0;
-        /* CORRECTION : Dégradé du haut vers le bas pour lire le texte placé en haut */
         background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.2) 50%, transparent 100%);
         transition: opacity 0.3s ease;
         z-index: 1; 
@@ -562,7 +557,7 @@
       }
 
       .teaser-tile:hover span {
-        transform: translateY(4px); /* Pousse le texte légèrement vers l'intérieur de la boîte */
+        transform: translateY(4px); 
       }
 
       .overlay-slide {
@@ -665,7 +660,6 @@
         min-height: 560px;
       }
 
-      /* --- SECTION CONTACT (Transparente pour laisser voir le fond Dune) --- */
       .contact-section-wrapper {
         position: relative;
         background: transparent;
@@ -761,7 +755,6 @@
         font-size: 16px;
       }
 
-      /* === MODALE FORMULAIRE (FORMSPREE) === */
       .modal-overlay {
         position: fixed;
         inset: 0;
@@ -866,13 +859,12 @@
         background: #2a4738;
       }
 
-      /* MEDIA QUERIES */
       @media (max-width: 1100px) {
         .shows-grid, .promise-grid, .about-grid, .teaser-grid {
           grid-template-columns: 1fr;
         }
         .teaser-grid { height: auto; }
-        .teaser-tile { min-height: 210px; } /* CORRECTION : Enlève le padding top forcé */
+        .teaser-tile { min-height: 210px; }
       }
 
       @media (max-width: 768px) {
@@ -899,7 +891,7 @@
         section { padding: 54px 0; }
         .section-head p, .promise-copy, .about-copy, .contact-copy p, .bullet, .text-slide-inner p { font-size: 17px; }
 
-        .carousel-3d-scene, .slide-3d > img, .overlay-slide, .text-slide { height: 400px; min-height: 400px; }
+        .carousel-3d-scene, .slide-3d > img, .slide-3d > video.poster-video, .overlay-slide, .text-slide { height: 400px; min-height: 400px; }
         
         .split-slide { flex-direction: column; gap: 0; }
         .split-slide .slide-image { 
@@ -907,7 +899,7 @@
            height: 40%; 
            margin: 20px auto 0; 
            object-fit: cover; 
-           object-position: top center; /* CORRECTION : Assure le cadrage du visage sur mobile aussi */
+           object-position: top center; 
            box-shadow: 0 6px 16px rgba(0,0,0,0.1); 
         }
         .split-slide .copy { padding: 10px 20px 20px; }
@@ -1007,7 +999,6 @@
 
           <div class="shows-grid">
             
-            <!-- CUBE 1 : LES BRADERIES DE LA TERRE (4 FACES) -->
             <article class="card carousel reveal" data-carousel-3d>
               <div class="carousel-head">
                 <h3>Les braderies de la Terre</h3>
@@ -1020,7 +1011,9 @@
                 <div class="carousel-3d-rig">
                   
                   <div class="slide-3d">
-                    <img src="assets/braderies-affiche.jpg" alt="Affiche Les braderies de la Terre" />
+                    <video class="poster-video" autoplay loop muted playsinline>
+                      <source src="assets/braderies-affiche-loop.mp4" type="video/mp4">
+                    </video>
                   </div>
                   
                   <div class="slide-3d">
@@ -1038,7 +1031,6 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/5ca2d7f3-1e51-4c47-8dc5-f63772808547">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_braderies.jpg">
                           <source src="assets/teaser-braderies-loop.mp4" type="video/mp4">
@@ -1072,7 +1064,6 @@
               </div>
             </article>
 
-            <!-- CUBE 2 : BRAHMS (3 FACES) -->
             <article class="card carousel reveal" data-carousel-3d style="transition-delay: 0.1s;">
               <div class="carousel-head">
                 <h3>J'irai chanter du Brahms dans un supermarché</h3>
@@ -1085,7 +1076,9 @@
                 <div class="carousel-3d-rig">
                   
                   <div class="slide-3d">
-                    <img src="assets/brahms-affiche.jpg" alt="Affiche" />
+                    <video class="poster-video" autoplay loop muted playsinline>
+                      <source src="assets/brahms-affiche-loop.mp4" type="video/mp4">
+                    </video>
                   </div>
                   
                   <div class="slide-3d">
@@ -1104,7 +1097,6 @@
                   
                   <div class="slide-3d">
                     <div class="teaser-grid">
-                      <!-- Tuile Teaser avec Vidéo de fond en boucle -->
                       <a class="teaser-tile" target="_blank" href="https://kdrive.infomaniak.com/app/share/785585/42a72bd5-dcc3-4cb5-bfea-398415c7d9d7">
                         <video class="teaser-video-bg" autoplay loop muted playsinline poster="assets/mini_teaser_brahms.jpg">
                           <source src="assets/teaser-brahms-loop.mp4" type="video/mp4">
@@ -1192,7 +1184,6 @@
       
     </main>
 
-    <!-- === FENÊTRE MODALE DE CONTACT INVISIBLE (FORMSPREE) === -->
     <div class="modal-overlay" id="contact-modal">
       <div class="modal-content">
         <button class="modal-close" id="close-contact-modal" aria-label="Fermer">×</button>
@@ -1210,7 +1201,6 @@
     </div>
 
     <script>
-      // === ANIMATIONS AU DEFILEMENT (REVEAL) ===
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1226,7 +1216,6 @@
 
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-      // === GESTION DES CUBES 3D : LERP (AUTO-ROTATION) + SWIPE SÉCURISÉ ===
       document.querySelectorAll("[data-carousel-3d]").forEach((carousel) => {
         const scene = carousel.querySelector(".carousel-3d-scene");
         const rig = carousel.querySelector(".carousel-3d-rig");
@@ -1274,7 +1263,7 @@
             let isInteracting = isHovered || isTouched;
             
             if (!isInteracting) {
-                targetRotation += 0.20; // Vitesse de la rotation lente
+                targetRotation += 0.20; 
             }
             
             actualRotation += (targetRotation - actualRotation) * 0.1;
@@ -1331,7 +1320,6 @@
         }, {passive: true});
       });
 
-      // === DIAPORAMA AMBIANCE ===
       const ambientImages = Array.from(document.querySelectorAll("[data-ambient] img"));
       let ambientIndex = 0;
       setInterval(() => {
@@ -1340,7 +1328,6 @@
         ambientImages[ambientIndex].classList.add("active");
       }, 3500);
 
-      // === GESTION DE LA MODALE DE CONTACT ===
       const modal = document.getElementById('contact-modal');
       const openBtn = document.getElementById('open-contact-modal');
       const closeBtn = document.getElementById('close-contact-modal');
