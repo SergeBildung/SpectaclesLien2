@@ -925,6 +925,107 @@
 
         .modal-content { padding: 30px 20px; }
       }
+
+      /* --- LIVRE D'OR (MARQUEE) --- */
+.guestbook-section {
+  padding: 60px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.guestbook-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.guestbook-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2f6a4c;
+}
+
+.guestbook-title h2 {
+  font-size: 2rem;
+  color: #2c2825;
+  margin-top: 8px;
+}
+
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #f8f4ee, transparent);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #f8f4ee, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 16px;
+  padding-right: 16px;
+  animation: scroll-left linear infinite;
+}
+
+.marquee-track:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+.track-1 .marquee-content { animation-duration: 45s; }
+.track-2 .marquee-content { animation-duration: 55s; }
+.track-3 .marquee-content { animation-duration: 40s; }
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.quote {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(80, 68, 53, 0.12);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  color: #2c2825;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  white-space: nowrap;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.quote:hover {
+  transform: scale(1.02);
+  border-color: #2f6a4c;
+}
+      
     </style>
   </head>
 
@@ -1165,6 +1266,63 @@
           </div>
         </div>
       </section>
+
+      <section class="guestbook-section" id="livre-dor">
+  <div class="guestbook-title">
+    <div class="guestbook-kicker">Livre d'or</div>
+    <h2>Paroles de spectateurs</h2>
+  </div>
+
+  <div class="marquee-container">
+    <!-- LIGNE 1 -->
+    <div class="marquee-track track-1">
+      <div class="marquee-content">
+        <span class="quote">« J’ai été emportée par ce tourbillon de portraits à la fois burlesques et réalistes ! »</span>
+        <span class="quote">« Un vrai régal à écouter, à sentir, à méditer. »</span>
+        <span class="quote">« Bravo pour ton jeu avec le public ! C’était un beau moment inattendu en famille. »</span>
+        <span class="quote">« Déstabilisant, émouvant, drôle, merveilleux de beauté. »</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="quote">« J’ai été emportée par ce tourbillon de portraits à la fois burlesques et réalistes ! »</span>
+        <span class="quote">« Un vrai régal à écouter, à sentir, à méditer. »</span>
+        <span class="quote">« Bravo pour ton jeu avec le public ! C’était un beau moment inattendu en famille. »</span>
+        <span class="quote">« Déstabilisant, émouvant, drôle, merveilleux de beauté. »</span>
+      </div>
+    </div>
+
+    <!-- LIGNE 2 -->
+    <div class="marquee-track track-2">
+      <div class="marquee-content">
+        <span class="quote">« J’ai été fascinée, scotchée, touchée, amusée, et profondément connectée... »</span>
+        <span class="quote">« Tu as trouvé le chemin étroit entre critique et empathie. »</span>
+        <span class="quote">« Merci infiniment, puissance, finesse, poésie, formidable critique sur la société. »</span>
+        <span class="quote">« Merci pour ce moment très fort, plaisant et dérangeant à la fois. »</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="quote">« J’ai été fascinée, scotchée, touchée, amusée, et profondément connectée... »</span>
+        <span class="quote">« Tu as trouvé le chemin étroit entre critique et empathie. »</span>
+        <span class="quote">« Merci infiniment, puissance, finesse, poésie, formidable critique sur la société. »</span>
+        <span class="quote">« Merci pour ce moment très fort, plaisant et dérangeant à la fois. »</span>
+      </div>
+    </div>
+
+    <!-- LIGNE 3 -->
+    <div class="marquee-track track-3">
+      <div class="marquee-content">
+        <span class="quote">« Surprises, découvertes, rire et profondeur : un vrai moment d’humanité. »</span>
+        <span class="quote">« Merci pour ces moments de poésie, de satire, de chants. »</span>
+        <span class="quote">« Je me découvre un intérêt insoupçonné pour les sujets que tu évoques. »</span>
+        <span class="quote">« Une transformation physique impressionnante ! Je suis entrée dans l’univers du personnage ! »</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="quote">« Surprises, découvertes, rire et profondeur : un vrai moment d’humanité. »</span>
+        <span class="quote">« Merci pour ces moments de poésie, de satire, de chants. »</span>
+        <span class="quote">« Je me découvre un intérêt insoupçonné pour les sujets que tu évoques. »</span>
+        <span class="quote">« Une transformation physique impressionnante ! Je suis entrée dans l’univers du personnage ! »</span>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section id="contact" class="contact-section-wrapper reveal">
         <div class="container contact-wrap">
