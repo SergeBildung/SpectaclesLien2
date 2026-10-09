@@ -1025,7 +1025,34 @@
   transform: scale(1.02);
   border-color: #2f6a4c;
 }
-      
+
+      /* --- SECTION LIEUX D'ACCUEIL --- */
+.partners-section {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.partners-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.partner-logo {
+  max-height: 70px;
+  max-width: 180px;
+  object-fit: contain;
+  opacity: 0.85;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.partner-logo:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
     </style>
   </head>
 
@@ -1235,6 +1262,20 @@
         </div>
       </section>
 
+
+      <section id="lieux" class="partners-section">
+  <div class="container">
+    <div class="eyebrow">Ils m'ont fait confiance</div>
+    <h2 style="font-size: clamp(28px, 4vw, 42px); margin-top: 8px;">Quelques lieux d'accueil</h2>
+    
+    <div class="partners-grid">
+      <img class="partner-logo" src="assets/LogoAntibea.jpeg" alt="Théâtre Antibéa" />
+      <img class="partner-logo" src="assets/LogoITF.jpg" alt="ITF" />
+      <img class="partner-logo" src="assets/LogoEnracines.jpg" alt="Les enracinés" />
+    </div>
+  </div>
+</section>
+
       <section id="ambiance">
         <div class="container reveal">
           <div class="section-head">
@@ -1267,6 +1308,7 @@
           </div>
         </div>
       </section>
+
 
       <section class="guestbook-section" id="livre-dor">
   <div class="guestbook-title">
